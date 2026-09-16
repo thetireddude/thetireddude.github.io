@@ -22,7 +22,7 @@ export const projects = [
       "I came up with the idea, built the backend, and implemented the leaderboard plus match-score history graph with AI-assisted tips for improvement."
     ],
     artwork: "marketplace",
-    rank: null,
+    rank: 1,
     images: [
       { src: "assets/images/projects/improv-faceoff/home-screen.jpg", alt: "Improv Faceoff home screen" },
       { src: "assets/images/projects/improv-faceoff/game-info.jpg", alt: "Improv Faceoff game information and rules" },
@@ -55,7 +55,7 @@ export const projects = [
       "I engineered both agents end-to-end and built the backend data handling, API routes, and agent integration layer. The discovery agent uses GPT-4o-mini, OpenAI tool calling, and Tavily MCP for iterative retrieval and validation; the voice agent uses the OpenAI Realtime API and WebRTC to preserve conversation context and trigger live follow-up searches."
     ],
     artwork: "marketplace",
-    rank: null,
+    rank: 3,
     images: []
   },
   {
@@ -77,7 +77,7 @@ export const projects = [
       "I built the recipe-import interface and the cooking-plan experience, including create, view, update, and delete flows; recipe selection and linking; a dedicated details page; and loading, error, and not-found states. I also co-deployed the frontend, backend, and database to Render, contributing about 2,100 lines across 11 commits and 3 pull requests."
     ],
     artwork: "project",
-    rank: null,
+    rank: 2,
     images: [
       { src: "assets/images/projects/kitchlog/recipes-tab.png", alt: "KitchLog saved recipes page" },
       { src: "assets/images/projects/kitchlog/add-recipe-1.png", alt: "KitchLog add recipe form" },
@@ -115,7 +115,7 @@ export const projects = [
       "As Product Lead and developer, I helped define the product vision, feature set, and user flow; built the initial MVP; architected the Supabase database; integrated Google authentication; managed pull requests and merges; and refined the final UI/UX. The AI workflow uses the OpenAI Responses API with vision and gpt-4o-mini to extract structured event data from user-triggered screenshots."
     ],
     artwork: "project",
-    rank: null,
+    rank: 4,
     images: [
       { src: "assets/images/projects/poly-sync/logo.jpg", alt: "PolySync project logo" },
       { src: "assets/images/projects/poly-sync/team.jpg", alt: "PolySync hackathon team" },
