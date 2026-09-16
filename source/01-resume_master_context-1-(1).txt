@@ -1,0 +1,698 @@
+RESUME MASTER CONTEXT — EXPERIENCES & PROJECTS
+Last updated: September 15, 2026 at 12:33 AM UTC
+Last updated in: ATS RESUME chat — DoorDash Software Engineer Intern (Summer 2027) tailoring
+
+PURPOSE
+This file is a factual context store for tailoring Omar Mohamed's resume. Treat each experience/project independently when selecting content for a job. Do not assume details that are not explicitly recorded here. Metrics should be used only when relevant and defensible.
+
+============================================================
+EXPERIENCE
+============================================================
+
+SANDBAR HEALTH — Software Engineering Intern
+Location: Remote
+Dates: Jul 2026 – Aug 2026
+Workload/context:
+- Summer internship, approximately 40 hrs/week.
+- Engineering team consisted of 2 engineers, including Omar, plus one non-engineer who occasionally contributed to the codebase.
+- Omar was the only intern assigned to his workstreams.
+- Two major workstreams: broker-platform authentication and a broker renewal-shopping tool.
+- Startup environment required substantial end-to-end ownership and product decision-making.
+
+BROKER PLATFORM AUTHENTICATION
+Scope/ownership:
+- Omar owned the authentication work end-to-end: diagnosis, specification, implementation, testing, and deployment.
+- Reworked/rebuilt broker login, invitation, callback, and multi-organization flows.
+- Technologies included Next.js/TypeScript, WorkOS AuthKit, OAuth 2.0/OIDC, and PKCE.
+- Implemented invite/callback handling and secure multi-organization routing.
+- Authentication work was merged and deployed to the live broker platform.
+- Flow was tested with real identity-provider infrastructure and subsequently used by external brokers.
+
+Impact/metrics:
+- Nathan Zanzig's internship resume notes state roughly 80–90% of brokers who were sent the platform were observed hitting a sign-in problem before the fixes; the observed post-fix sample fell to zero. This was observed from the brokers sent the platform, not instrumented telemetry, so phrase as "observed broker sign-in failures."
+- First-time broker sign-in/navigation flow was reduced from roughly 7–8 page-navigation steps to 4.
+- Resolved 4 layered authentication defects.
+- Earlier known usage: 5 external brokers had accepted invitations and become active platform users; do not assume this remains the final usage count.
+- Delivered 4 auth-related PR/features in roughly one week (one PR was cancelled and combined into another, but effectively four pieces of work).
+- Auth test work included 182 test blocks (~321 runtime cases) and ~30 mutation checks.
+- Nathan described the authentication issue as the largest drop-off between "demo sent" and "broker using the product."
+- Nathan's notes also describe a first-login failure that had survived two prior reverts and an incorrect diagnosis blaming the identity provider. Omar traced the redirect behavior and identified the PKCE/invite-flow mismatch.
+- Security/design work included tenant-safe organization handling and an AES-256-GCM handoff for organization allowlisting.
+- Replaced a misleading generic auth error path with multiple explicit error states.
+
+RENEWAL SHOPPER / AI-POWERED BROKER TOOL
+Naming:
+- Do NOT use the internal name "Renewal Shopper" on the resume unless explicitly desired.
+- Describe it as an AI-powered/AI-native broker tool that lives within Sandbar's broker platform.
+
+Final status:
+- Fully completed by the end of the internship.
+- Merged into the main broker-platform repository.
+- Deployed to production.
+- Immediately put in front of brokers.
+- No reliable post-launch usage metrics are available.
+- Omar does not know how many real employer renewals have subsequently been processed.
+
+Ownership:
+- Omar was the sole engineer implementing the tool from Nathan's prototype/product direction through production.
+- Owned architecture, data model, frontend/backend implementation, API/database design, AI integrations, testing, and deployment.
+- Approximately 36 commits and ~40,000 LOC were contributed by Omar to this project alone.
+- Approximately 18–19 API route files / ~28 HTTP endpoints in final implementation.
+- Modular architecture was designed for handoff/extension by incoming engineers.
+- Omar made product/engineering decisions rather than only implementing tickets, including reconciling conflicting requirements and proposing practical alternatives.
+
+Final shipped functionality:
+- Renewal creation and document upload.
+- AI extraction of current-plan and renewal-plan documents.
+- Census parsing.
+- Multi-plan extraction/support.
+- Editable 27-row plan/benefit comparison spread.
+- Deterministic financial calculations.
+- Competitor/carrier quote upload, extraction, and review.
+- Carrier selection workflow.
+- AI-generated carrier outreach/email drafts.
+- Compare view.
+- CSV and XLSX exports.
+- Final tool did NOT ship live email sending, tracking/follow-up emails, Share tab, PDF export, or deck export.
+
+AI/document-processing architecture:
+- Claude API processed insurance PDFs into structured data.
+- Extraction supported carrier documents containing multiple plans; sample carrier documents contained approximately 2–5 plans.
+- Structured/schema validation was used for extracted outputs.
+- Long-running extraction was handled through background job processing with job-status polling rather than blocking a single HTTP request.
+- Prior extraction results could be reused so unchanged documents did not require another model call.
+- Extraction cache was keyed from document content plus extraction role/instructions/model.
+- Earlier observed cached rerun example was ~41s to ~12s, but this was not a formal benchmark; avoid presenting as a production performance metric.
+- Up to ~96 structured values per analysis was an earlier valid metric, but Omar does not consider it especially useful for resume bullets.
+- Testing used all available sample documents; earlier set was 16 documents across approximately 3–4 groups.
+- No formal extraction-accuracy, latency, or production-usage metrics exist.
+
+Financial/data correctness:
+- AI extracts data, while client-facing financial calculations are deterministic application logic.
+- System distinguishes unknown/null values from legitimate zeros to avoid plausible but incorrect financial outputs.
+- Multi-plan extraction was added after real carrier documents showed 2–5 plan options.
+- PostgreSQL row-level security was used for tenant isolation.
+- RLS coverage included 24 data-access functions under a sweep test.
+- A system-catalog assertion caught a WITH CHECK policy regression that behavioral isolation tests would not detect.
+- This engineering rigor is strong interview material, but it may not deserve a dedicated resume bullet unless relevant.
+
+Business/product context:
+- Existing renewal workflow required brokers to chase carrier quotes over email, re-key plan data into spreadsheets, and rebuild comparisons manually.
+- Internal estimate: the workflow the tool targets represents roughly ~1,000 hours/year of manual broker work. This is NOT measured realized savings; safe wording is "designed to reduce/automate a workflow representing ~1,000 hours/year of manual work."
+- Product goal was to move broker time from administrative renewal work toward advising clients/winning business.
+
+Current preferred Sandbar resume-story structure:
+1. Zero-to-one production AI/full-stack tool ownership.
+2. Authentication impact with ~80–90% observed failures -> zero.
+3. Concrete AI/document extraction subsystem if a third bullet is needed.
+Possible wording concepts:
+- "Architected and shipped a production AI-powered broker tool as sole engineer..."
+- "Reduced observed broker sign-in failures from ~80–90% to zero by rebuilding invite/callback handling and secure multi-org routing using WorkOS AuthKit, OAuth 2.0/OIDC, and PKCE."
+- "Built LLM extraction pipelines supporting 2–5 plans per insurance document, transforming unstructured PDFs and carrier quotes into structured comparison data using Claude API, schema validation, background processing, and reuse of prior extraction results."
+
+------------------------------------------------------------
+
+ALGOVERSE — Machine Learning Researcher
+Location: Remote
+Dates: Mar 2026 – Jul 2026 (resume version)
+Program context:
+- Research program designed as ~12 weeks but could extend until the research project was complete.
+- Approximately 25 hrs/week.
+- Two meetings per week.
+- Team of 4 researchers.
+- Mentor advised/guided; researchers were responsible for literature review, identifying research gaps, proposing hypotheses/experiments, selecting research directions, executing experiments, and reporting findings.
+- Work was sometimes individual, sometimes in pairs, sometimes whole-team.
+
+Research focus:
+- LLM post-training/self-improvement for code generation and reasoning.
+- Simple Self-Distillation (SSD).
+- On-Policy Distillation (OPD).
+- HumanEval code-generation benchmark.
+- GSM8K mathematical reasoning was also explored.
+- Main model referenced on resume: Qwen2.5-Coder-1.5B.
+- Stack included PyTorch, Hugging Face Transformers, PEFT, LoRA/QLoRA, 4-bit quantization/bitsandbytes, datasets, some TRL.
+- Primarily Google Colab T4; also L4 and A100 through Colab Pro.
+- Research was designed to remain runnable on a single Colab T4.
+
+Strongest OPD result:
+- HumanEval pass@1 improved from 43.3% to 60.4%.
+- +17.1 percentage points.
+- +28 solved HumanEval problems.
+- Achieved through On-Policy Distillation experiments on Qwen2.5-Coder-1.5B.
+
+Strongest SSD contribution:
+- SSD at small scale was initially producing negative/weak results.
+- Ablation studies identified noisy self-generated training targets as an important/primary failure mode.
+- Omar introduced a code-extraction preprocessing pipeline that trained on extracted generated code rather than the full noisy model response.
+- HumanEval improved from 70/164 to 77/164.
+- Approximately 42.7% -> 47.0%, +4.3 pass@1 percentage points.
+- This was the finding Omar identified as his personally most meaningful research contribution because it finally produced a positive SSD result.
+- Experiments also revealed an inverted-U relationship between sampling temperature and downstream performance.
+
+ML/research engineering:
+- Built reproducible single-GPU training/evaluation pipelines.
+- Debugged evaluation infrastructure that incorrectly reported 0/164 HumanEval; correction restored benchmark output to 72/164.
+- Used LoRA/QLoRA, quantization, batched generation/rollouts, experiment logging, and benchmark evaluation.
+- Resource-efficient experimentation on Colab T4 is a useful ML-engineering angle.
+
+Research output:
+- Co-authored a machine-learning research manuscript based on the team's findings.
+- Manuscript was submitted to a COLM workshop but was NOT accepted.
+- Resume should generally say "co-authored an ML research manuscript" rather than imply publication/acceptance.
+
+Current preferred Algoverse bullets:
+- "Improved HumanEval pass@1 from 43.3% to 60.4% (+17.1 pts) by implementing and evaluating On-Policy Distillation on Qwen2.5-Coder-1.5B using PyTorch, Transformers, PEFT, and QLoRA."
+- "Improved Simple Self-Distillation HumanEval performance from 70/164 to 77/164 (+4.3 pts) by designing ablation studies that identified noisy self-generated targets and introducing a code-extraction preprocessing pipeline."
+- "Co-authored an ML research manuscript on LLM self-improvement while building reproducible single-GPU training and evaluation pipelines on Colab (T4), including debugging benchmark failures that restored HumanEval results from 0/164 to 72/164."
+
+============================================================
+LEADERSHIP / CLUB EXPERIENCE
+============================================================
+
+CS+AI CLUB — Meeting Facilitator; Director of Meetings (Incoming)
+Location: San Luis Obispo, California
+Dates:
+- Meeting Facilitator: Fall 2025 – Spring 2026
+- Director of Meetings: Incoming, Fall 2026
+Context:
+- Organized/led 3 AI workshops.
+- Approximately 40–50 students per workshop (resume has used ~40).
+- 1-hour sessions.
+- Designed to be beginner-friendly while still useful for intermediate attendees.
+- Used presentations, discussions, exercises, live demos, and Google Colab notebooks.
+- Slide decks were released after meetings.
+- Typical deck length approximately 20–25 slides.
+- Two Colab notebooks plus several live demos across the series.
+
+Workshop 1 — Prompting / Prompt Engineering:
+- What is a prompt?
+- What makes a good prompt?
+- Prompt engineering.
+- Instruction, context, input data, output indicator.
+- Affirmative bias, anchoring bias, prompt chaining.
+- Useful AI tools including NotebookLM, Nano Banana, UndermindAI, Mistral OCR.
+- Practical example prompts, group discussions, and exercises.
+- Attendees experimented with Gemini.
+- Examples connected concepts to practical use cases.
+
+Workshop 2 — Data for AI/ML:
+- Why training needs data and why data quality matters.
+- Datasets, dataset types, DataFrames, data labeling.
+- Data quality and cleaning.
+- Connecting dataset types to use cases.
+- Data splitting, loading datasets, data loaders.
+- Google Colab demonstration covering loading, cleaning, validating data and training a Decision Tree classifier.
+- pandas and scikit-learn.
+- Included discussions, explanatory videos, and a real-world bad-data case study.
+
+Workshop 3 — Retrieval-Augmented Generation (RAG):
+- Reviewed prompt -> tokenizer -> tokens -> model -> output.
+- Why RAG is needed.
+- Ingestion/retrieval pipelines.
+- Embedding models.
+- Vectors/dimensions/embeddings.
+- Knowledge retrieval.
+- Cosine similarity.
+- Google Colab implementation using LangChain, ChromaDB, Gemini embedding model via Google GenAI SDK, and document loaders.
+- Notebook covered loading documents, chunking, vector database storage, ingestion, loading vector DB for retrieval, retriever configuration, and vector-matched output.
+- Used Wikipedia-derived text files.
+- Attendees mainly followed explanation but could run/experiment themselves.
+
+Current concise resume bullet:
+- "Designed and led 3 AI workshops for ~40 students, creating Google Colab demos and coding exercises using Gemini, LangChain, ChromaDB, pandas, and scikit-learn to teach prompt engineering, RAG, and applied AI workflows."
+
+------------------------------------------------------------
+
+GOOGLE DEVELOPER STUDENT CLUB — Tech Lead
+Location: San Luis Obispo, California
+Dates: Fall 2025 – Present
+Context:
+- Previously a member; became Tech Lead.
+- Led roughly 5–10 workshops, but Omar does NOT want that count on the resume.
+- Workshops approximately 1–1.5 hours.
+- Approximately 20–25 attendees.
+- Conducted live coding walkthroughs.
+- Google technologies included Flutter and Dart.
+- Created/distributed technical resources, presentation slides, and GitHub-hosted code.
+- Roughly one slide deck per meeting and one overall GitHub repo.
+- Provided live Q&A and post-session support.
+- Attendance did not meaningfully increase.
+- This experience was later removed/compressed from the one-page resume to prioritize stronger technical experience.
+
+============================================================
+TECHNICAL PROJECTS
+============================================================
+
+IMPROV FACEOFF — CodeboxHacks 2026 Hackathon Project
+Date: Sep 2026
+Hackathon context:
+- CodeboxHacks.
+- 30-hour hackathon.
+- 3-person team including Omar.
+- Project concept originated with Omar, then was developed collaboratively.
+- Product spec/milestone breakdown were a joint effort.
+- Submitted and judged; no award/placement.
+- Codex was used during development.
+
+Product:
+- Real-time 1v1 improv/public-speaking training game.
+- Two anonymous players enter matchmaking, connect by live camera/microphone, receive AI-generated scenario/roles, perform a synchronized 60-second scene, and receive post-match scoring/coaching.
+- Players alternate speaking turns.
+- Listener can use limited "Switches" to interrupt active speaker mid-response and force a pivot.
+- Live transcript is displayed.
+- Post-round AI judging evaluates performance and provides coaching.
+- Final app deployed publicly on Render, including persistent PostgreSQL database.
+- Cloudflare tunnels were used only for local/remote testing, not final hosting.
+
+Team-level stack:
+- Frontend: React 18, Vite, React Router, Socket.IO Client, LiveKit React Components, Framer Motion.
+- Backend: Python, Flask, Flask-SocketIO, SQLAlchemy, Alembic.
+- Real-time state: Socket.IO + Redis.
+- Media: LiveKit.
+- STT: Deepgram.
+- AI: Gemini/Gemma for scenario generation/judging depending final implementation.
+- Persistence: PostgreSQL.
+- Testing/quality: pytest, Ruff, ESLint, JSON Schema contract validation.
+
+Omar's role:
+- Developer 1 / Backend owner.
+- Attribute backend milestones B1–B5 to Omar.
+- Omar mainly built the backend; Developer 3 owned Deepgram STT and deterministic scoring/Gemini judging.
+- Omar's proudest technical accomplishments: matchmaking and getting real-time audio/video working.
+
+Backend work personally owned:
+- Flask application/backend architecture.
+- Flask-SocketIO.
+- Redis-backed anonymous matchmaking queue.
+- Atomic queue claim/pairing.
+- Anonymous guest IDs.
+- Duplicate queue prevention.
+- Player A/B assignment.
+- Match IDs and temporary Redis match state.
+- Server-authoritative ready/countdown/round state.
+- Configurable server-owned 60-second timer.
+- Active-speaker/turn state.
+- Switch inventory/validation and timestamps.
+- Repeated Switch support.
+- Rejection of invalid gameplay actions and post-round actions.
+- Disconnect handling and match cleanup.
+- LiveKit backend integration.
+- Match-scoped LiveKit rooms.
+- Short-lived participant tokens scoped to the correct room.
+- Backend service integration interfaces for scenario/transcription/judging.
+- Backend health/readiness checks.
+- Shared schema/event/fixture contract validation.
+- Abandoned guest recovery.
+- Did NOT personally own Deepgram STT implementation.
+- Did NOT personally own Gemini judge/scenario core logic except backend integration/orchestration.
+- Did NOT personally own deterministic Speed scoring.
+
+Backend project metrics (entire backend; do not automatically claim every LOC as Omar-authored):
+- 64 backend files total.
+- 59 Python files: 44 production/support + 15 test files.
+- 7,754 physical Python LOC (6,670 nonblank; 7,731 excluding blank/comment-only lines).
+- 7 HTTP API endpoints.
+- 16 Socket.IO inbound handlers/events.
+- 20 Socket.IO emit calls.
+- 11 service modules.
+- 15 test files containing 76 test functions.
+- Project overall: 60 PRs, 165 commits. Do NOT assume Omar authored exactly one-third on resume without repository verification.
+
+Reliability mechanisms confirmed as Omar's:
+- Server-authoritative state.
+- Atomic Redis matchmaking.
+- Duplicate queue protection.
+- Server-side gameplay/action validation.
+- Match-scoped LiveKit credentials.
+- Disconnect cleanup.
+- Abandoned guest recovery.
+- Backend health/readiness checks.
+- Shared contract validation.
+Not confirmed/should not attribute to Omar:
+- Idempotent Switch requests.
+- Pre-round cancellation recovery.
+- Reconnect/result recovery.
+- Gemini judging fallback.
+- Bounded Gemini retries.
+- Production WebSocket verification.
+- Structured result validation / safe integration failures only "maybe"; do not claim without confirmation.
+
+Persistence / leaderboard / progress system:
+- Final version added persistent data even though early specs treated it as optional.
+- Four SQLAlchemy Core tables:
+  1. players — persistent anonymous identity.
+  2. matches — completed-match record.
+  3. match_scores — one score per player per match.
+  4. match_feedback — progress/AI-feedback row per player per match.
+- PostgreSQL in production; tests used in-memory SQLite.
+- Three HTTP endpoints:
+  - GET /api/leaderboard
+  - GET /api/players/<guest_id>/rank
+  - GET /api/players/<guest_id>/match-feedback
+- Ranking based on each player's best completed-match total score, using SQL window functions and deterministic tie-breaking.
+- Cursor pagination.
+- Persisted per match:
+  - total score
+  - Adaptability
+  - Articulation
+  - Speed
+  - Coherence
+  - Collaboration
+  - win/loss/tie
+  - scoring version
+  - AI overview
+  - what went well
+  - what to improve
+  - full rubric log
+- Progress graph:
+  - plots total score across chronological matches.
+  - hover/click on each point shows total score, all five skill scores/ratings, overview, what went well, what to improve, rubric log.
+  - up to 100 history rows fetched.
+- Latest stored feedback is reused in progress summary; no new AI call required.
+- Direct persistence/leaderboard/progress implementation approximately 925 LOC before shared wiring/tests.
+- Direct tests: 2 files / 4 test functions, with additional upstream lifecycle/judge coverage.
+- Need explicit confirmation before claiming Omar personally built both backend AND frontend of this persistence/progress subsystem; earlier user said "yes" to implementing leaderboard/history but final frontend ownership question was not answered.
+
+Current preferred Improv Faceoff resume structure (2 bullets):
+1. Project/outcome:
+   "Built and deployed a real-time 1v1 improv training game in 30 hours on a 3-person team, enabling remote players to match, communicate over live video/audio, complete synchronized 60-second rounds, and receive AI-generated feedback."
+2. Personal technical accomplishment:
+   "Synchronized multiplayer state and live media across two remote clients by engineering a Python/Flask-SocketIO backend with Redis-backed atomic matchmaking, server-authoritative game state, and match-scoped LiveKit rooms."
+- Avoid using 16 Socket.IO handlers merely to force a metric unless useful.
+- Strongest positioning: realtime/backend systems engineering, not another AI-heavy project.
+
+------------------------------------------------------------
+
+NEW NEWS AI — Kiro Hacks 2026 Hackathon Project
+Date: May 2026
+Context:
+- 13-hour hackathon submission.
+- Team of 2.
+- Built using Kiro IDE.
+- Omar's focus was primarily backend.
+- Built from scratch.
+- Submitted via video + deployed link for judging.
+- Deployed to Vercel.
+
+Omar's ownership:
+- Personally implemented both AI agents.
+- Built both agents' logic.
+- Built backend data handling.
+- Built API routes/API requests.
+- Built integration layer between agents.
+
+Product:
+- Multi-agent news analysis platform.
+- Discovers, validates, discusses, and explains breaking news.
+- Users can explore stories through real-time voice conversations.
+
+News Discovery Agent:
+- Autonomous iterative planning/agentic loop.
+- Uses OpenAI models, especially GPT-4o-mini.
+- OpenAI tool calling.
+- Tavily MCP.
+- Retrieves, evaluates, clusters, expands, and validates candidate news topics.
+- Configurable targetTopicCount; default 5.
+- Configurable maxIterations; default 3.
+
+Conversation / Voice Agent:
+- OpenAI Realtime API.
+- WebRTC for low-latency bidirectional voice.
+- Maintains conversation history/context.
+- Dynamic Tavily follow-up retrieval when more information is needed.
+- Context-aware discussions.
+- Inter-agent communication.
+- Configurable maxConversationTurns; default 10.
+- One conversation session per user.
+
+Architecture/metrics:
+- Next.js + TypeScript.
+- Next.js API routes.
+- OpenAI API / Realtime API.
+- Approximately 6–8 endpoints.
+- Approximately 60–80 files.
+- Approximately 20–25 components.
+- Millions of input tokens used during development/testing, but this is NOT a useful resume metric.
+- No meaningful production usage metrics.
+
+Current preferred 2-bullet structure:
+1. Project overview:
+   "Built and deployed a multi-agent news platform to Vercel in 13 hours on a 2-person team, enabling users to discover and validate breaking-news stories and explore them through real-time voice conversations."
+2. Personal technical achievement:
+   "Enabled autonomous news analysis and context-aware voice discussions by engineering both agents end-to-end, using GPT-4o-mini, OpenAI tool calling, and Tavily MCP for iterative retrieval and validation, and OpenAI Realtime API + WebRTC to maintain conversational context and trigger dynamic follow-up searches during live discussions."
+
+------------------------------------------------------------
+
+KITCHLOG — CodePath WEB103 Capstone Project
+Date: Jul 2026
+Context:
+- Final capstone for CodePath WEB103 Advanced Web Development.
+- Built over approximately 2 weeks.
+- 4-person team.
+- Omar spent approximately 10–15 hrs/week during capstone.
+- Demoed in a breakout room of ~25 people; overall class ~150.
+- No capstone award.
+- Course completed with Honors (>90% score).
+
+Product:
+- Full-stack recipe and meal-planning application.
+- React + React Router + Vite frontend.
+- Node.js + Express backend.
+- PostgreSQL.
+- 16 RESTful endpoints across 3 route files.
+- Deployed on Render.
+- Features included:
+  - recipe CRUD
+  - manual recipe creation
+  - recipe URL import
+  - cooking plans
+  - grocery-list generation
+  - favorites
+  - search/filtering
+  - grocery checklist
+- Recipe URL import backend used HTML scraping/parsing + JSON-LD.
+- Grocery aggregation sums quantities.
+- Approximately 15 seeded recipes and 5 cooking plans.
+- No application-level record limit apart from free-tier hosting constraints.
+- No automated testing; intentionally a scrappy 2-week course capstone, not production software.
+
+Omar's individual contribution:
+- Did NOT design the PostgreSQL schema personally; involved in initial brainstorming.
+- Did NOT build the recipe scraping/parsing logic; helped integrate it.
+- Built recipe-import frontend/interface:
+  - URL input
+  - calling import endpoint
+  - loading/error handling
+  - integrating imported data into recipe creation.
+- Built cooking-plan frontend and details:
+  - create/view/update/delete cooking plans
+  - recipe selection/linking
+  - dedicated details page
+  - rename plan
+  - add/remove recipes
+  - delete plan
+  - loading/error/not-found states.
+- Co-deployed React frontend, Express backend, and PostgreSQL setup on Render with another teammate.
+- Approximately 2,100 LOC.
+- 11 commits.
+- 3 PRs.
+- 4 assigned issues out of 14 total project issues.
+- Team collectively maintained GitHub Project.
+- Branch convention: feature/<issue-number>-<short-description>.
+- Commit convention: feat/fix/docs/test-<short-description>.
+- PR titles matched issue titles; no fixed PR-description convention.
+- PRs were self-managed.
+- Used GitHub Projects, issue dependencies, feature branches, PR workflow.
+
+Current preferred one-bullet version:
+- "Built and deployed recipe-import and cooking-plan features for a full-stack recipe app on a 4-person team using React, Node.js, Express, PostgreSQL, and REST APIs, contributing ~2,100 LOC across 11 commits and 3 PRs."
+- If space is limited, KitchLog is the first of the current three projects to cut.
+- If space permits, it complements Improv Faceoff + New News by showing conventional React/Express/PostgreSQL/REST full-stack development.
+
+------------------------------------------------------------
+
+POLYSYNC — Poly Prompt 2026 Hackathon Project
+Date: Mar 2026
+Context:
+- 48-hour hackathon.
+- Team of 5.
+- Omar served as Product Lead and Developer.
+- Approximately 10 PR merges associated with Omar/team work (previously recorded; use carefully if attribution matters).
+
+Product:
+- Chrome extension + full-stack dashboard for extracting event information from web pages and turning it into calendar events.
+- JavaScript Chrome extension.
+- Used OpenAI Vision API on webpage screenshots.
+- Extracted 8 structured event fields.
+- Generated calendar events / .ics files.
+- Tested on Instagram, Facebook, LinkedIn, and international sites such as Weibo and Naver.
+- Full-stack Next.js dashboard.
+- Supabase.
+- Google OAuth / authentication.
+- Google Calendar integration.
+- Multi-user database.
+- Approximately 5 dashboard routes:
+  /login
+  /signup
+  /dashboard
+  /dashboard/events/:id
+  /dashboard/account
+- Main external integrations: OpenAI, Supabase, Google OAuth; Chrome extension APIs also used.
+
+Omar's product role:
+- Defined product vision and feature flows.
+- Built MVP.
+- Managed PRs.
+- Refined UI/UX.
+- Worked under 48-hour timeline.
+
+Earlier concise bullets:
+- Built a JavaScript Chrome extension using OpenAI Vision API to extract 8 event fields from webpages and convert them into calendar events and .ics files for a Next.js dashboard.
+- Developed a full-stack Next.js/Supabase dashboard with CRUD, Auth.js/Supabase Auth, and Google Calendar integration; served as Product Lead on a team of 5 during a 48-hour hackathon.
+- Removed from default resume later because newer projects provide stronger/non-overlapping signals.
+
+------------------------------------------------------------
+
+KAYO — Agentic Coding Agent
+Dates: Apr – May 2026
+Type: Personal Project
+Status:
+- Removed from default resume to prioritize full-stack/SWE + AI engineering experiences, but useful swap-in for agent/coding-tool roles.
+
+Product:
+- Lightweight CLI-based agentic coding agent written in Python.
+- Uses Google GenAI SDK/free Google models; at the time used Gemma 4 31B.
+- CLI format: python main.py "<prompt>" --verbose (optional).
+- Given a prompt/instructions, reasons one step at a time, executes a tool, receives result, then plans next step.
+- Conversation history contains prior steps/tool calls/results within one agent run.
+- No memory across separate user prompts/runs.
+- Restricted to a configured working/project directory.
+
+Tools (4):
+1. get_files_info — lists files/directories with name, size, is_directory.
+2. get_file_content — reads file content up to configured maximum.
+3. write_file — creates/overwrites files and intermediary directories.
+4. run_python_file — executes Python file with optional CLI args and configured timeout.
+
+Architecture/features:
+- Structured tool schemas.
+- Dedicated tool-calling interface processes model-returned function calls.
+- Agentic loop limit configured; Gemma setup used 20 iterations, roughly aligned with RPM.
+- Config parameters (5):
+  WORKING_DIRECTORY
+  READ_MAX_CHARS
+  EXECUTION_TIMEOUT
+  FUNCTION_CALL_VERBOSE
+  AGENTIC_LOOP_LIMIT
+- Verbose mode shows input/output tokens, function calls/results, system prompt, and model text.
+- Context-aware memory within agentic loop.
+- Robust error handling returns errors to the model so it can diagnose/self-correct instead of crashing process.
+- Handles Google API 500/internal errors/high-traffic failures.
+- Python libraries included google.genai, argparse, dotenv, sys, os, pathlib, subprocess.
+- Approximately 400 LOC.
+- Tested across 4 workflows.
+- Tested by generating a simple portfolio website with separate HTML/CSS/JS files.
+- No fixed file-generation limit; bounded by loop limit/API behavior.
+
+Earlier concise bullets:
+- Built a CLI-based coding agent in Python using Google GenAI SDK to plan and execute multi-step solutions via an agentic loop with configurable limits.
+- Implemented a schema-based tool-calling interface for file I/O and code execution, with 4 autonomous tools, context-aware memory, 5 runtime configuration controls, and error handling for reliable iterative reasoning.
+
+============================================================
+EDUCATION / COURSE CONTEXT
+============================================================
+
+CALIFORNIA POLYTECHNIC STATE UNIVERSITY, SAN LUIS OBISPO
+- Computer Science / AI-related undergraduate context from resume.
+- GPA previously shown as 3.6/4.0.
+- Honors/Awards previously shown: President's List, Dean's List (4x).
+- Related coursework previously included Data Structures, Algorithm Design and Analysis, Computer Organization, Object-Oriented Programming, Systems Programming, Discrete Structures, Linear Algebra, Database Systems, Cybersecurity.
+- Verify current degree title, dates, GPA, awards, and coursework from current resume before tailoring; do not assume stale values.
+
+CODEPATH
+Courses/certifications discussed:
+- WEB103 Advanced Web Development — Summer 2026; completed with Honors (>90% course score).
+- Applications of AI Engineering (AI201) — listed on resume.
+- Advanced Technical Interview Prep (TIP102) — listed on resume.
+
+WEB103 course structure:
+- 10 weeks.
+- Weekly class: 1-hour lecture + 1-hour collaborative breakout-room lab.
+- Weekly project submissions building on lecture/lab concepts.
+- Roughly 9 separate projects/iterations; last 2–3 weeks built on same application.
+- Final ~2-week 4-person KitchLog capstone.
+Topics by unit:
+1. Building a Web Server — Node/Express, client/server separation, HTTP routes/static files.
+2. Structuring Web Data — PostgreSQL/SQL.
+3. Handling RESTful Requests — REST APIs, React-to-server communication.
+4. Dynamic Data — POST/PATCH/DELETE, CRUD.
+5. Data Relationships: Backend — relational tables/data integrity.
+6. Data Relationships: Frontend — React frontend consuming relational REST API; async/await, axios/fetch.
+7. Pitch Day & Managing Collaborative Projects — GitHub PRs/issues/branching/project management.
+8. Authentication.
+9. Deployment — full-stack deployment on Render.
+10. Demo Day.
+
+============================================================
+OLDER / NON-DEFAULT PROJECTS
+============================================================
+
+Other older projects previously mentioned but intentionally not prioritized on current resume:
+- Weather App.
+- Super Hexagon.
+- Todo App.
+- OOP Game Project.
+Details are not fully preserved in this context store. Do not invent them; consult prior source material if needed.
+
+============================================================
+CURRENT RESUME POSITIONING / SELECTION GUIDANCE
+============================================================
+
+Primary target roles:
+- Software Engineering internships.
+- Full-stack engineering.
+- AI engineering.
+- Big-tech internships.
+
+Current strongest experience/project signals:
+1. Sandbar Health — production full-stack + AI engineering, measurable auth impact, sole-engineer zero-to-one ownership.
+2. Algoverse — ML/LLM research and experimentation.
+3. Improv Faceoff — realtime/backend systems engineering.
+4. New News AI — agentic/realtime AI engineering.
+5. KitchLog — conventional React/Express/PostgreSQL/REST full-stack teamwork.
+6. PolySync — product/full-stack/AI hackathon work.
+7. Kayo — agentic coding/tooling.
+
+Default Technical Projects if space permits:
+- Improv Faceoff — 2 bullets.
+- New News AI — 2 bullets.
+- KitchLog — 1 bullet.
+
+If project space must be reduced:
+- Preserve Improv Faceoff and New News AI first.
+- KitchLog is the first current project to remove.
+- PolySync and Kayo are useful role-specific swap-ins.
+
+Project differentiation:
+- Improv Faceoff = realtime/backend/distributed state.
+- New News AI = agentic AI + retrieval + realtime voice.
+- KitchLog = conventional full-stack REST.
+- PolySync = product leadership + browser extension + AI extraction/calendar integration.
+- Kayo = coding agents/tool calling.
+
+Resume bullet philosophy established in this work:
+- Prefer clear Google XYZ-style bullets:
+  X = concrete accomplishment/outcome.
+  Y = defensible result/scale/metric.
+  Z = technical implementation.
+- Do not force weak metrics merely to satisfy XYZ.
+- Start bullets with what was achieved, not "implemented X, Y, Z" feature inventories.
+- Technical details should explain HOW the accomplishment happened.
+- Keep hackathon projects to ~2 bullets when possible.
+- For team projects, explicitly separate team-level product scope from Omar's individual contribution.
+- Never claim teammate work as Omar's.
+- Avoid opaque jargon when a clearer phrase exists.
+  Example: "background processing with job-status polling" instead of "asynchronous jobs" when readability matters.
+  Example: "reuse of prior extraction results" instead of "content-addressed caching" when readability matters.
+- Do not use LOC/commit counts as impact metrics when stronger product/outcome metrics exist; they can still help establish personal contribution in course/team projects.
+- Keep the one-page constraint in mind; readability is more important than preserving every technical detail.

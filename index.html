@@ -1,46 +1,327 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Omar's Website</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMAR — Issue #01: The Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <nav class="navbar">
-        <h1 class="logo">
-            <a href="index.html">tired's website</a>
-        </h1>
-        <ul class="nav-list">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="portfolio.html">Portfolio</a></li>
-            <li><a href="resume.html">Resume</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
-    <main>
-        <h1 class="page-title">WELCOME</h1>
-        <div class="about">
-            <div class="about-image">
-                <img src="src/about.jpg" alt="city wallpaper image" width="900">
-            </div>
-            <div class="about-text">
-                <p>
-                    <em>Hi!</em> Thanks for checking out my website! <br><br>
-                    This page serves as my canvas to tweak and design your first impression of me. <br>
-                    It will be a display of artistic aesthetic
-                </p>
-            </div>
+
+<!-- ================= MASTHEAD ================= -->
+<header class="masthead">
+  <span class="logo">OMAR</span>
+  <span class="issue">Issue #01 · The Developer</span>
+  <nav aria-label="Sections">
+    <a href="#home">Home</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- ================= COVER GRID ================= -->
+<main>
+<section class="cover" id="home" aria-label="Cover">
+  <div class="cover-board">
+
+    <!-- HERO PANEL -->
+    <article class="panel hero halftone">
+      <div class="stars"></div>
+      <span class="sfx" style="top:14px;right:120px">ZAP!</span>
+      <span class="bolt" style="top:26px;right:70px" aria-hidden="true">
+        <svg viewBox="0 0 24 40"><path d="M14 0 2 22h7L6 40 22 14h-8L18 0z" fill="currentColor" stroke="#0b0f11" stroke-width="2"/></svg>
+      </span>
+      <div class="burst"><span>HI!</span></div>
+      <br>
+      <div class="nameplate">I’m Omar</div>
+      <br>
+      <button class="btn" style="margin-top:20px" type="button" id="resume-button">
+        <span>📄</span>
+        <span>My Résumé<small>view / download →</small></span>
+      </button>
+      <div class="figure" aria-hidden="true">
+        <!-- noir figure silhouette -->
+        <svg viewBox="0 0 220 300">
+          <defs>
+            <pattern id="ht" width="6" height="6" patternUnits="userSpaceOnUse">
+              <circle cx="3" cy="3" r="1" fill="rgba(239,233,220,.16)"/>
+            </pattern>
+          </defs>
+          <!-- hair -->
+          <path d="M96 30 C84 8 128 2 140 16 C158 6 172 26 164 44 C176 52 170 74 158 78 L150 96 118 96 100 74 C86 70 86 46 96 30z" fill="#0b0f11"/>
+          <path d="M104 26 c10 -10 34 -10 44 2 -6 -2 -12 0 -16 6 -8 -8 -20 -10 -28 -8z" fill="#17323d"/>
+          <!-- face sliver -->
+          <path d="M150 52 c8 2 12 12 8 22 -4 10 -12 16 -18 14 l-4 -18z" fill="#e4dccb"/>
+          <path d="M152 62 l8 2" stroke="#0b0f11" stroke-width="2"/>
+          <!-- coat -->
+          <path d="M70 300 L74 150 C76 118 96 96 128 92 L156 90 C186 96 204 120 206 152 L212 300z" fill="#0b0f11"/>
+          <path d="M120 96 L110 300 130 300 140 98z" fill="#17323d"/>
+          <path d="M76 150 C80 122 98 102 124 96 L118 130 96 170 84 220z" fill="url(#ht)"/>
+          <!-- collar -->
+          <path d="M118 92 L96 120 108 132 128 100z" fill="#1e4150" stroke="#0b0f11" stroke-width="3"/>
+          <path d="M160 92 L184 122 170 134 148 100z" fill="#1e4150" stroke="#0b0f11" stroke-width="3"/>
+        </svg>
+      </div>
+      <div class="sky" aria-hidden="true">
+        <svg viewBox="0 0 400 160" preserveAspectRatio="none">
+          <g fill="#0c1a21" stroke="#0b0f11" stroke-width="2">
+            <rect x="0" y="70" width="46" height="90"/><rect x="50" y="40" width="34" height="120"/>
+            <rect x="88" y="86" width="52" height="74"/><rect x="304" y="52" width="40" height="108"/>
+            <rect x="348" y="80" width="52" height="80"/>
+          </g>
+          <g fill="#e9b64e" opacity=".85">
+            <rect x="8" y="80" width="6" height="8"/><rect x="24" y="96" width="6" height="8"/>
+            <rect x="58" y="52" width="5" height="7"/><rect x="70" y="70" width="5" height="7"/>
+            <rect x="98" y="96" width="6" height="8"/><rect x="316" y="64" width="5" height="7"/>
+            <rect x="328" y="90" width="5" height="7"/><rect x="360" y="92" width="6" height="8"/>
+          </g>
+        </svg>
+      </div>
+    </article>
+
+    <!-- EXPERIENCE PANEL -->
+    <article class="panel halftone hatch">
+      <span class="sfx" style="top:10px;right:14px;font-size:1.7rem">WHAM!</span>
+      <a class="bubble plain" href="#experience" style="text-decoration:none;color:var(--ink)">Experience</a>
+      <br><span class="kicker">My journey so far</span>
+      <div class="doodle" aria-hidden="true">
+        <svg viewBox="0 0 200 130">
+          <rect x="30" y="8" width="140" height="86" rx="4" fill="#efe9dc" stroke="#0b0f11" stroke-width="5"/>
+          <rect x="40" y="18" width="120" height="66" fill="#0c171d"/>
+          <polyline points="48,72 66,52 78,62 96,36 110,48 126,30" fill="none" stroke="#7fd2dc" stroke-width="3"/>
+          <rect x="112" y="26" width="40" height="4" fill="#efe9dc" opacity=".7"/>
+          <rect x="112" y="36" width="30" height="4" fill="#efe9dc" opacity=".45"/>
+          <path d="M14 118 L30 94 h140 l16 24z" fill="#e4dccb" stroke="#0b0f11" stroke-width="5"/>
+          <rect x="78" y="102" width="44" height="8" rx="3" fill="#0b0f11"/>
+        </svg>
+      </div>
+      <p class="copy">Explore my professional journey, skills, and the companies I’ve had the privilege to work with.</p>
+      <a class="btn teal" href="#experience" style="margin-top:14px">View Experience <span class="arrow">→</span></a>
+      <div class="sky" style="height:34%" aria-hidden="true">
+        <svg viewBox="0 0 400 100" preserveAspectRatio="none">
+          <g fill="#0c1a21" stroke="#0b0f11" stroke-width="2">
+            <rect x="250" y="18" width="30" height="82"/><rect x="286" y="42" width="44" height="58"/>
+            <rect x="336" y="10" width="26" height="90"/><rect x="366" y="50" width="34" height="50"/>
+          </g>
+          <g fill="#e9b64e" opacity=".8">
+            <rect x="258" y="30" width="5" height="6"/><rect x="296" y="54" width="5" height="6"/>
+            <rect x="344" y="24" width="5" height="6"/><rect x="374" y="60" width="5" height="6"/>
+          </g>
+        </svg>
+      </div>
+    </article>
+
+    <!-- SKILLS PANEL -->
+    <article class="panel halftone">
+      <div class="stars"></div>
+      <span class="sfx" style="bottom:16px;right:16px;font-size:1.7rem">POW!</span>
+      <a class="bubble plain" href="#skills" style="text-decoration:none;color:var(--ink);background:var(--cyan)">Skills</a>
+      <br><span class="kicker">Top Tools &amp; Technologies</span>
+      <div class="chips" id="featured-skills-list" aria-label="Featured skill list"></div>
+      <div class="motto">Always learning.<br>Always building. ⚡</div>
+      <a class="btn teal" href="#skills" style="margin-top:22px">All Skills <span class="arrow">→</span></a>
+    </article>
+
+    <!-- PROJECTS PANEL -->
+    <article class="panel halftone hatch">
+      <span class="sfx" style="top:12px;right:16px;font-size:1.7rem">BAM!</span>
+      <a class="bubble plain" href="#projects" style="text-decoration:none;color:var(--ink)">Projects</a>
+      <br><span class="kicker">Things I’ve built</span>
+      <ol class="mini-timeline" id="featured-projects-list"></ol>
+      <a class="btn" href="#projects" style="margin-top:16px">See the work <span class="arrow">→</span></a>
+      <div class="sky" style="height:30%" aria-hidden="true">
+        <svg viewBox="0 0 400 90" preserveAspectRatio="none">
+          <g fill="#0c1a21" stroke="#0b0f11" stroke-width="2">
+            <rect x="290" y="20" width="36" height="70"/><rect x="332" y="44" width="68" height="46"/>
+          </g>
+          <g fill="#e9b64e" opacity=".8"><rect x="300" y="32" width="5" height="6"/><rect x="348" y="56" width="5" height="6"/></g>
+        </svg>
+      </div>
+    </article>
+
+    <!-- ABOUT PANEL -->
+    <article class="panel halftone">
+      <span class="sfx" style="top:12px;left:18px;font-size:1.7rem">ZOOM!</span>
+      <a class="bubble plain" href="#about" style="text-decoration:none;color:var(--paper);background:var(--ink)">About Me</a>
+      <div class="notebox" style="margin-top:24px;transform:rotate(-1.4deg)" id="about-abstract"></div>
+      <a class="btn" href="#about" style="margin-top:22px">Learn More <span class="arrow">→</span></a>
+    </article>
+
+    <!-- CONTACT PANEL -->
+    <article class="panel halftone">
+      <div class="stars"></div>
+      <div class="moon" aria-hidden="true"></div>
+      <span class="sfx" style="bottom:18px;right:20px;font-size:1.7rem">RING!</span>
+      <a class="bubble plain" href="#contact" style="text-decoration:none;color:var(--ink)">Contact</a>
+      <br><span class="kicker">Let’s work together!</span>
+      <div class="c-rows" id="cover-contact-links" aria-label="Contact links"></div>
+      <div class="sky" style="height:28%" aria-hidden="true">
+        <svg viewBox="0 0 400 90" preserveAspectRatio="none">
+          <g fill="#0c1a21" stroke="#0b0f11" stroke-width="2">
+            <rect x="230" y="14" width="30" height="76"/><rect x="266" y="40" width="46" height="50"/>
+            <rect x="318" y="26" width="34" height="64"/><rect x="356" y="52" width="44" height="38"/>
+          </g>
+          <g fill="#e9b64e" opacity=".85">
+            <rect x="238" y="26" width="5" height="6"/><rect x="276" y="52" width="5" height="6"/>
+            <rect x="328" y="38" width="5" height="6"/><rect x="366" y="60" width="5" height="6"/>
+          </g>
+        </svg>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<span class="pagejump" id="experience"></span>
+<section class="section" aria-labelledby="xp-h">
+  <div class="section-head reveal">
+    <span class="bubble" id="xp-h">Experience</span>
+    <br><span class="kicker">Page 2 · My journey so far</span>
+  </div>
+  <div id="experience-list" aria-live="polite"></div>
+</section><!-- ================= SKILLS ================= -->
+<span class="pagejump" id="skills"></span>
+<section class="section" aria-labelledby="sk-h">
+  <div class="section-head reveal">
+    <span class="bubble" id="sk-h" style="background:var(--cyan)">Skills</span>
+    <br><span class="kicker">Page 3 · Tools &amp; technologies I use</span>
+  </div>
+  <div class="strip reveal halftone" style="grid-template-columns:1fr">
+    <span class="sfx" style="top:-18px;left:28px">ZAP!</span>
+    <div class="cell hatch" id="skills-list" aria-live="polite"></div>
+  </div>
+</section>
+<!-- ================= PROJECTS ================= -->
+<span class="pagejump" id="projects"></span>
+<section class="section" aria-labelledby="pr-h">
+  <div class="section-head reveal">
+    <span class="bubble" id="pr-h">Projects</span>
+    <br><span class="kicker">Page 4 · Things I’ve built</span>
+  </div>
+  <div id="projects-list" aria-live="polite"></div>
+</section><!-- ================= ABOUT ================= -->
+<span class="pagejump" id="about"></span>
+<section class="section" aria-labelledby="ab-h">
+  <div class="section-head reveal">
+    <span class="bubble" id="ab-h" style="background:var(--ink);color:var(--paper)">About Me</span>
+    <br><span class="kicker">Page 5 · Origin story</span>
+  </div>
+
+  <div class="strip about-grid reveal halftone">
+    <span class="sfx" style="top:-18px;left:28px">ZOOM!</span>
+    <div class="cell hatch">
+      <div class="notebox" id="about-description"></div>
+    </div>
+    <div class="cell">
+      <div class="stars"></div>
+      <div class="about-photo">
+        <div class="frame"><img src="assets/images/headshot.jpg" alt="Omar"></div>
+        <span class="cap">OMAR</span>
+      </div>
+      <!-- <span class="photo-note">📷 Placeholder — swap in your photo</span> -->
+      <ul class="facts" id="about-details"></ul>
+      <div class="sky" style="height:26%" aria-hidden="true">
+        <svg viewBox="0 0 400 80" preserveAspectRatio="none">
+          <g fill="#0c1a21" stroke="#0b0f11" stroke-width="2">
+            <rect x="10" y="20" width="30" height="60"/><rect x="46" y="40" width="50" height="40"/>
+            <rect x="320" y="12" width="30" height="68"/><rect x="356" y="44" width="44" height="36"/>
+          </g>
+          <g fill="#e9b64e" opacity=".8"><rect x="18" y="30" width="5" height="6"/><rect x="330" y="24" width="5" height="6"/></g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<span class="pagejump" id="contact"></span>
+<section class="section" aria-labelledby="ct-h">
+  <div class="section-head reveal">
+    <span class="bubble" id="ct-h" style="background:var(--amber)">Contact</span>
+    <br><span class="kicker">Final page · Let’s work together!</span>
+  </div>
+
+  <div class="strip contact-strip reveal halftone" style="grid-template-columns:1fr">
+    <span class="sfx" style="top:-18px;right:30px">RING!</span>
+    <div class="cell">
+      <div class="stars"></div>
+      <div class="moon" aria-hidden="true"></div>
+      <p class="copy" style="max-width:56ch;font-size:1.05rem">Have a project, a role, or just a wild idea? The signal’s on — pick a channel and the next issue starts with your message.</p>
+      <div class="contact-grid" id="contact-links" aria-label="Contact links"></div>
+      <div class="sky" style="height:30%" aria-hidden="true">
+        <svg viewBox="0 0 400 90" preserveAspectRatio="none">
+          <g fill="#0c1a21" stroke="#0b0f11" stroke-width="2">
+            <rect x="0" y="26" width="36" height="64"/><rect x="42" y="48" width="54" height="42"/>
+            <rect x="102" y="16" width="28" height="74"/><rect x="270" y="30" width="40" height="60"/>
+            <rect x="316" y="10" width="30" height="80"/><rect x="352" y="46" width="48" height="44"/>
+          </g>
+          <g fill="#e9b64e" opacity=".85">
+            <rect x="8" y="38" width="5" height="6"/><rect x="54" y="58" width="5" height="6"/>
+            <rect x="110" y="30" width="5" height="6"/><rect x="280" y="42" width="5" height="6"/>
+            <rect x="324" y="22" width="5" height="6"/><rect x="362" y="56" width="5" height="6"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span class="display">TO BE CONTINUED…</span><br>
+  © 2026 Omar · Inked with HTML, CSS &amp; a little JavaScript · No heroes were harmed in the making of this site
+</footer>
+
+<!-- ================= RÉSUMÉ MODAL ================= -->
+<div class="modal-overlay" id="resume-modal-overlay" aria-hidden="true">
+  <div class="comic-modal resume-modal" role="dialog" aria-modal="true" aria-labelledby="resume-modal-title" id="resume-modal">
+    <button type="button" class="modal-close" id="resume-modal-close-btn" aria-label="Close résumé viewer">✕</button>
+    <div class="modal-head">
+      <span class="bubble plain" id="resume-modal-title">My Résumé</span>
+      <br><span class="modal-type">VIEW OR DOWNLOAD</span>
+    </div>
+    <div class="resume-actions">
+      <a class="btn resume-open-tab" href="assets/documents/resume.pdf" target="_blank" rel="noopener">Open in New Tab <span class="arrow">↗</span></a>
+      <a class="btn teal resume-download" href="assets/documents/resume.pdf" download>Download Résumé <span class="arrow">↓</span></a>
+    </div>
+    <div class="resume-viewer-wrap">
+      <iframe class="resume-viewer" src="assets/documents/resume.pdf" title="Omar’s résumé PDF">
+        Your browser cannot display PDFs. Use the download button below.
+      </iframe>
+    </div></div>
+</div>
+<!-- ================= PROJECT DETAIL MODAL ================= -->
+<div class="modal-overlay" id="project-modal-overlay" aria-hidden="true">
+  <div class="comic-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-text" id="project-modal">
+    <button type="button" class="modal-close" id="modal-close-btn" aria-label="Close project details">✕</button>
+    <div class="modal-head">
+      <span class="bubble plain" id="modal-title-text">Project</span>
+      <br><span class="modal-type" id="modal-type-text"></span>
+    </div>
+
+    <div class="modal-main">
+      <div class="modal-art-box halftone" id="modal-art-box"></div>
+      <div class="modal-side">
+        <div class="modal-details" id="modal-details"></div>
+        <div class="modal-stack">
+          <span class="modal-section-label">Tech Stack</span>
+          <div class="tags modal-tags" id="modal-tags"></div>
         </div>
-        <section></section>
-        <section></section>
-        <section></section>
-        <section></section>
-        <section></section>
-    </main>
-    <footer class="footer">
-        © 2025 Omar's Website | All Rights Reserved
-    </footer>
+      </div>
+    </div>
+
+    <span class="modal-section-label">About This Project</span>
+    <div class="modal-desc" id="modal-desc-wrap"></div>
+  </div>
+</div>
+
+<script type="module" src="js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMAR — Issue #01: The Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   OMAR — ISSUE #01 · comic noir portfolio
+   palette: night teal / paper / ink / cyan / amber
+   ============================================================ */
+:root{
+  --ink:#0b0f11;
+  --night:#0e1c23;
+  --night-2:#122630;
+  --panel:#17323d;
+  --panel-2:#1e4150;
+  --paper:#efe9dc;
+  --paper-2:#e4dccb;
+  --cyan:#7fd2dc;
+  --teal:#3f7f8f;
+  --amber:#e9b64e;
+  --shadow:10px 12px 0 rgba(4,8,10,.6);
+  --border:4px solid var(--ink);
+  --frame:0 0 0 5px var(--paper);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+body{
+  font-family:'Comic Neue',cursive;
+  background:var(--night);
+  color:var(--paper);
+  overflow-x:hidden;
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(127,210,220,.06), transparent 40%),
+    radial-gradient(circle, rgba(255,255,255,.045) 1px, transparent 1.4px);
+  background-size:auto, 9px 9px;
+}
+::selection{background:var(--cyan);color:var(--ink)}
+
+/* ---------- utility: halftone + hatch ---------- */
+.halftone::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle, rgba(255,255,255,.07) 1.1px, transparent 1.3px);
+  background-size:7px 7px;
+  mix-blend-mode:overlay;
+}
+.hatch{
+  background-image:repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 2px, transparent 2px 9px);
+}
+
+/* ---------- typography ---------- */
+.display{font-family:'Bangers',cursive;letter-spacing:.04em;font-weight:400}
+h1,h2,h3{font-family:'Bangers',cursive;letter-spacing:.05em;font-weight:400}
+
+/* ============================================================
+   TOP STRIP — comic issue masthead
+   ============================================================ */
+.masthead{
+  position:sticky;top:0;z-index:50;
+  background:var(--paper);color:var(--ink);
+  border-bottom:4px solid var(--ink);
+  display:flex;align-items:center;gap:14px;
+  padding:8px 18px;
+  box-shadow:0 5px 0 rgba(4,8,10,.5);
+}
+.masthead .logo{
+  font-family:'Bangers',cursive;font-size:1.6rem;letter-spacing:.06em;
+  background:var(--ink);color:var(--cyan);
+  padding:2px 12px;transform:rotate(-2deg);
+  border:3px solid var(--ink);box-shadow:3px 3px 0 var(--teal);
+}
+.masthead .issue{
+  font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;
+  border:2px solid var(--ink);padding:3px 8px;background:var(--amber);
+  transform:rotate(1.5deg);
+  white-space:nowrap;
+}
+.masthead nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.masthead nav a{
+  font-family:'Bangers',cursive;font-size:1.02rem;letter-spacing:.06em;
+  color:var(--ink);text-decoration:none;padding:4px 11px;
+  border:3px solid transparent;
+  transition:transform .12s ease;
+}
+.masthead nav a:hover, .masthead nav a:focus-visible, .masthead nav a.active{
+  border-color:var(--ink);background:var(--cyan);
+  transform:rotate(-2deg) scale(1.06);
+  box-shadow:3px 3px 0 var(--ink);
+  outline:none;
+}
+
+/* ============================================================
+   COVER — the comic-page grid (hero)
+   ============================================================ */
+.cover{
+  max-width:1280px;margin:34px auto 90px;padding:0 18px;
+}
+.cover-board{
+  background:var(--paper);
+  border:5px solid var(--ink);
+  padding:12px;
+  box-shadow:14px 16px 0 rgba(4,8,10,.55);
+  display:grid;
+  grid-template-columns:1.25fr 1fr 1fr;
+  grid-template-rows:auto auto;
+  gap:12px;
+}
+.panel{
+  position:relative;
+  background:linear-gradient(180deg,var(--panel-2), var(--panel) 55%, var(--night-2));
+  border:4px solid var(--ink);
+  overflow:hidden;
+  min-height:340px;
+  padding:26px 24px;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.panel:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 rgba(4,8,10,.55)}
+.panel:focus-within{outline:3px dashed var(--cyan);outline-offset:3px}
+/* skewed gutters: alternate slight rotations for hand-drawn feel */
+.panel:nth-child(odd){transform:rotate(-.35deg)}
+.panel:nth-child(even){transform:rotate(.35deg)}
+.panel:nth-child(odd):hover{transform:rotate(-.35deg) translate(-3px,-3px)}
+.panel:nth-child(even):hover{transform:rotate(.35deg) translate(-3px,-3px)}
+
+/* skyline layer inside panels */
+.sky{position:absolute;inset:auto 0 0 0;height:62%;pointer-events:none;opacity:.95}
+.sky svg{width:100%;height:100%;display:block}
+.stars{position:absolute;inset:0;pointer-events:none;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.9) .8px, transparent 1.4px),
+    radial-gradient(circle, rgba(255,255,255,.5) .6px, transparent 1.2px);
+  background-size:120px 90px, 70px 60px;
+  background-position:10px 6px, 40px 30px;
+  opacity:.5;
+}
+
+/* speech-bubble / caption headers */
+.bubble{
+  position:relative;display:inline-block;
+  background:var(--paper);color:var(--ink);
+  border:var(--border);
+  padding:6px 20px 4px;
+  font-family:'Bangers',cursive;font-size:clamp(1.5rem,2.6vw,2.2rem);letter-spacing:.06em;
+  box-shadow:5px 5px 0 rgba(4,8,10,.5);
+  transform:rotate(-1.4deg);
+  z-index:2;
+}
+.bubble::after{ /* tail */
+  content:"";position:absolute;left:26px;bottom:-16px;
+  width:0;height:0;
+  border-left:5px solid transparent;border-right:16px solid transparent;
+  border-top:17px solid var(--ink);
+}
+.bubble::before{
+  content:"";position:absolute;left:29px;bottom:-9px;
+  width:0;height:0;z-index:1;
+  border-left:3px solid transparent;border-right:11px solid transparent;
+  border-top:12px solid var(--paper);
+}
+.bubble.plain::after,.bubble.plain::before{display:none}
+.kicker{
+  display:inline-block;margin-top:14px;
+  background:var(--ink);color:var(--paper);
+  font-weight:700;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  padding:4px 12px;transform:rotate(-1deg);
+  border:2px solid var(--ink);
+  box-shadow:3px 3px 0 rgba(4,8,10,.4);
+  position:relative;z-index:2;
+}
+
+/* HI! burst */
+.burst{
+  position:relative;display:inline-grid;place-items:center;
+  width:min(240px,54%);aspect-ratio:1.15;
+  background:var(--paper);
+  clip-path:polygon(50% 0%,60% 12%,76% 4%,78% 20%,95% 18%,88% 33%,100% 42%,88% 52%,98% 66%,82% 68%,84% 84%,68% 78%,62% 95%,50% 84%,38% 96%,32% 79%,15% 85%,19% 68%,2% 65%,12% 51%,0% 41%,13% 32%,5% 17%,23% 20%,25% 4%,40% 12%);
+  filter:drop-shadow(4px 5px 0 rgba(4,8,10,.55));
+  z-index:2;
+}
+.burst span{
+  font-family:'Bangers',cursive;
+  font-size:clamp(3.4rem,6.5vw,5.4rem);
+  color:var(--ink);
+  -webkit-text-stroke:2px var(--ink);
+  text-shadow:4px 4px 0 var(--cyan);
+  transform:rotate(-6deg);
+}
+
+/* hero specifics */
+.panel.hero{grid-row:span 1;min-height:480px}
+.nameplate{
+  display:inline-block;margin-top:16px;
+  background:var(--paper);color:var(--ink);
+  border:var(--border);box-shadow:6px 6px 0 rgba(4,8,10,.5);
+  padding:8px 26px;transform:rotate(-1.2deg);
+  font-family:'Bangers',cursive;font-size:clamp(1.9rem,3.4vw,2.9rem);letter-spacing:.05em;
+  position:relative;z-index:2;
+}
+.hero .figure{
+  position:absolute;right:-8px;bottom:0;width:56%;max-width:330px;z-index:1;
+  filter:drop-shadow(-4px 0 0 rgba(239,233,220,.25));
+}
+.hero .figure svg{width:100%;height:auto;display:block}
+
+/* comic buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--paper);color:var(--ink);
+  border:var(--border);
+  font-family:'Bangers',cursive;font-size:1.25rem;letter-spacing:.07em;
+  padding:8px 18px;text-decoration:none;
+  box-shadow:5px 5px 0 rgba(4,8,10,.55);
+  transform:rotate(-1deg);
+  transition:transform .12s ease, box-shadow .12s ease, background .12s;
+  position:relative;z-index:3;cursor:pointer;
+}
+.btn:hover,.btn:focus-visible{
+  background:var(--cyan);
+  transform:rotate(-1deg) translate(-2px,-2px);
+  box-shadow:8px 8px 0 rgba(4,8,10,.55);
+  outline:none;
+}
+.btn.teal{background:var(--cyan)}
+.btn.teal:hover{background:var(--amber)}
+.btn small{display:block;font-family:'Comic Neue',cursive;font-weight:700;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase}
+.btn .arrow{font-size:1.4rem;transform:translateY(-1px)}
+
+/* panel body copy */
+.panel p.copy{
+  margin-top:16px;max-width:34ch;
+  font-weight:700;font-size:.95rem;line-height:1.55;
+  color:#dbe7e6;
+  position:relative;z-index:2;
+  text-shadow:0 2px 0 rgba(4,8,10,.5);
+}
+
+/* laptop doodle */
+.doodle{position:relative;z-index:2;margin:18px 0 4px;width:min(210px,70%)}
+.doodle svg{width:100%;height:auto;display:block;filter:drop-shadow(5px 6px 0 rgba(4,8,10,.5))}
+
+/* skills chips (cover version) */
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px;position:relative;z-index:2}
+.chip{
+  background:var(--paper);color:var(--ink);
+  border:3px solid var(--ink);
+  font-family:'Bangers',cursive;font-size:1rem;letter-spacing:.05em;
+  padding:5px 10px;box-shadow:3px 3px 0 rgba(4,8,10,.5);
+}
+.chip:nth-child(odd){transform:rotate(-2deg)}
+.chip:nth-child(even){transform:rotate(2deg);background:var(--cyan)}
+.motto{
+  margin-top:20px;display:inline-block;
+  background:var(--teal);color:var(--paper);
+  border:var(--border);padding:8px 14px;
+  font-family:'Bangers',cursive;font-size:1.1rem;letter-spacing:.08em;
+  box-shadow:5px 5px 0 rgba(4,8,10,.5);transform:rotate(-1deg);
+  position:relative;z-index:2;
+}
+
+/* mini timeline on cover */
+.mini-timeline{list-style:none;margin-top:16px;position:relative;z-index:2}
+.mini-timeline li{
+  position:relative;padding:0 0 14px 26px;
+  border-left:3px solid var(--paper);margin-left:8px;
+}
+.mini-timeline li:last-child{padding-bottom:0}
+.mini-timeline li::before{
+  content:"";position:absolute;left:-9px;top:2px;width:12px;height:12px;border-radius:50%;
+  background:var(--paper);border:3px solid var(--ink);
+}
+.mini-timeline .when{font-weight:700;font-size:.68rem;letter-spacing:.14em;color:var(--cyan)}
+.mini-timeline .what{font-family:'Bangers',cursive;font-size:1.05rem;letter-spacing:.05em;color:var(--paper)}
+
+/* contact rows (cover) */
+.c-rows{margin-top:16px;display:grid;gap:10px;position:relative;z-index:2}
+.c-row{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--paper)}
+.c-row .ic{
+  width:38px;height:38px;flex:none;display:grid;place-items:center;
+  background:var(--panel-2);border:3px solid var(--paper);
+  box-shadow:3px 3px 0 rgba(4,8,10,.5);
+  font-size:1.1rem;
+}
+.c-row:hover .ic{background:var(--cyan);color:var(--ink);transform:rotate(-4deg)}
+.c-row b{font-family:'Bangers',cursive;font-size:1rem;letter-spacing:.07em;display:block}
+.c-row span{font-size:.8rem;font-weight:700;color:#c9d8d7}
+.moon{
+  position:absolute;top:44px;right:26px;width:86px;height:86px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, #f7f3e6, #cfc9b4 70%);
+  border:3px solid var(--ink);
+  box-shadow:0 0 0 8px rgba(239,233,220,.08), 0 0 30px rgba(239,233,220,.25);
+}
+.moon::after{content:"";position:absolute;inset:0;border-radius:50%;
+  background-image:radial-gradient(circle, rgba(11,15,17,.18) 1.4px, transparent 1.6px);
+  background-size:8px 8px;}
+
+/* SFX pop */
+.sfx{
+  position:absolute;z-index:6;pointer-events:none;
+  font-family:'Bangers',cursive;letter-spacing:.04em;
+  color:var(--amber);
+  -webkit-text-stroke:1.5px var(--ink);
+  text-shadow:3px 3px 0 var(--ink);
+  opacity:0;transform:scale(.4) rotate(-8deg);
+  transition:opacity .15s ease, transform .18s cubic-bezier(.2,1.6,.4,1);
+  font-size:2.2rem;
+}
+.panel:hover .sfx, .strip:hover .sfx{opacity:1;transform:scale(1) rotate(-8deg)}
+
+/* lightning bolts */
+.bolt{position:absolute;z-index:2;width:34px;color:var(--paper);filter:drop-shadow(2px 2px 0 var(--ink))}
+.bolt svg{width:100%;height:auto;display:block}
+
+/* ============================================================
+   FULL SECTIONS
+   ============================================================ */
+.section{max-width:1180px;margin:0 auto 110px;padding:0 18px;position:relative}
+.section-head{margin-bottom:44px;position:relative}
+.section-head .bubble{font-size:clamp(2rem,4vw,3rem)}
+.pagejump{position:relative;top:-120px;visibility:hidden}
+
+/* comic strips: rows of panels */
+.strip{
+  position:relative;
+  background:var(--paper);border:5px solid var(--ink);
+  padding:11px;box-shadow:12px 13px 0 rgba(4,8,10,.55);
+  display:grid;gap:11px;
+  margin-bottom:34px;
+  transform:rotate(-.3deg);
+}
+.strip:nth-child(even){transform:rotate(.3deg)}
+.strip .cell{
+  position:relative;overflow:hidden;
+  background:linear-gradient(180deg,var(--panel-2),var(--panel) 60%, var(--night-2));
+  border:4px solid var(--ink);
+  padding:24px 22px;min-height:200px;
+}
+
+/* EXPERIENCE */
+.xp{grid-template-columns:210px 1fr}
+.xp .when-cell{
+  display:grid;place-items:center;text-align:center;
+  background:var(--night-2);
+}
+.xp .when-cell .yr{font-family:'Bangers',cursive;font-size:2rem;letter-spacing:.05em;color:var(--cyan);text-shadow:3px 3px 0 rgba(4,8,10,.6)}
+.xp .when-cell .to{display:block;font-weight:700;font-size:.7rem;letter-spacing:.2em;color:#b6c8c8;margin:4px 0}
+.xp h3{font-size:1.7rem;color:var(--paper);text-shadow:3px 3px 0 rgba(4,8,10,.55);position:relative;z-index:2}
+.xp .org{display:inline-block;margin:8px 0 10px;background:var(--paper);color:var(--ink);
+  border:3px solid var(--ink);padding:2px 10px;font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;
+  transform:rotate(-1deg);box-shadow:3px 3px 0 rgba(4,8,10,.45);position:relative;z-index:2}
+.xp-list{list-style:none;max-width:62ch;position:relative;z-index:2}
+.xp-list li{
+  position:relative;padding-left:24px;margin-top:9px;
+  font-weight:700;font-size:.92rem;line-height:1.55;color:#dbe7e6;
+}
+.xp-list li:first-child{margin-top:0}
+.xp-list li::before{
+  content:"";position:absolute;left:0;top:7px;
+  width:9px;height:9px;background:var(--cyan);
+  border:2px solid var(--ink);
+  transform:rotate(45deg);
+}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;position:relative;z-index:2}
+.tag{background:var(--ink);color:var(--cyan);font-weight:700;font-size:.68rem;letter-spacing:.12em;
+  padding:3px 9px;border:2px solid var(--cyan)}
+
+/* SKILLS trading cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px}
+.skill-group-label{
+  display:inline-block;margin:0 0 16px;
+  background:var(--ink);color:var(--cyan);
+  font-family:'Bangers',cursive;letter-spacing:.06em;font-size:1.2rem;
+  padding:5px 15px;transform:rotate(-1deg);
+  box-shadow:3px 3px 0 rgba(4,8,10,.4);
+}
+.skill-group-label:not(:first-child){margin-top:34px}
+.cards + .skill-group-label{margin-top:34px}
+.card{
+  position:relative;background:var(--paper);border:4px solid var(--ink);
+  box-shadow:6px 7px 0 rgba(4,8,10,.55);
+  padding:14px 12px 12px;text-align:center;color:var(--ink);
+  transition:transform .15s ease;
+}
+.card:nth-child(odd){transform:rotate(-1.2deg)}
+.card:nth-child(even){transform:rotate(1.2deg)}
+.card:hover{transform:rotate(0) translateY(-6px) scale(1.04)}
+.card .glyph{
+  width:64px;height:64px;margin:0 auto 10px;display:grid;place-items:center;
+  background:var(--night-2);border:3px solid var(--ink);
+  font-family:'Bangers',cursive;font-size:1.5rem;color:var(--cyan);
+  box-shadow:inset 0 0 0 3px rgba(127,210,220,.15), 3px 3px 0 rgba(4,8,10,.35);
+}
+.card h3{font-size:1.15rem}
+.card .lvl{margin-top:8px;display:flex;gap:4px;justify-content:center}
+.card .lvl i{width:12px;height:12px;background:var(--paper-2);border:2px solid var(--ink);transform:rotate(45deg)}
+.card .lvl i.on{background:var(--amber)}
+
+/* PROJECTS */
+.proj{grid-template-columns:1fr}
+.proj .cell{display:grid;grid-template-columns:1.1fr .9fr;gap:0;padding:0;min-height:260px}
+.proj .txt{padding:26px 24px;position:relative;z-index:2}
+.proj .art{position:relative;border-left:4px solid var(--ink);overflow:hidden;background:var(--night-2)}
+.proj h3{font-size:2rem;color:var(--paper);text-shadow:3px 3px 0 rgba(4,8,10,.55)}
+.proj .when{display:inline-block;margin:6px 0 12px;color:var(--amber);font-weight:700;font-size:.72rem;letter-spacing:.18em}
+.proj p{font-weight:700;font-size:.93rem;line-height:1.6;color:#dbe7e6;max-width:52ch}
+.mock{
+  position:absolute;inset:12% 10%;
+  background:#0c171d;border:4px solid var(--paper);
+  box-shadow:8px 9px 0 rgba(4,8,10,.6);
+  transform:rotate(-2deg);
+  padding:10px;
+}
+.mock .bar{height:10px;background:var(--paper);margin-bottom:8px;display:flex;gap:4px;align-items:center;padding:0 4px}
+.mock .bar i{width:5px;height:5px;border-radius:50%;background:var(--ink)}
+.mock .ln{height:7px;background:rgba(127,210,220,.5);margin:7px 0;border-radius:2px}
+.mock .ln.short{width:55%}
+.mock .ln.amber{background:rgba(233,182,78,.65);width:40%}
+.mock .blocks{display:flex;gap:6px;margin-top:10px}
+.mock .blocks b{flex:1;height:34px;background:rgba(239,233,220,.14);border:2px solid rgba(127,210,220,.4)}
+.mock .blocks b:nth-child(2){height:48px}
+.mock .blocks b:nth-child(3){height:26px}
+
+/* ABOUT */
+.about-grid{grid-template-columns:1.1fr .9fr}
+.notebox{
+  position:relative;z-index:2;background:var(--paper);color:var(--ink);
+  border:var(--border);box-shadow:7px 8px 0 rgba(4,8,10,.55);
+  padding:24px 26px;transform:rotate(-.8deg);
+  clip-path:polygon(2% 4%, 98% 0%, 100% 30%, 97% 96%, 55% 100%, 3% 97%, 0% 55%);
+}
+.notebox p{font-weight:700;font-size:1.02rem;line-height:1.75;letter-spacing:.02em}
+.notebox p + p{margin-top:16px}
+.facts{list-style:none;position:relative;z-index:2;display:grid;gap:12px}
+.facts li{
+  background:var(--night-2);border:3px solid var(--paper);
+  padding:12px 16px;box-shadow:4px 4px 0 rgba(4,8,10,.5);
+  font-weight:700;font-size:.88rem;color:#dbe7e6;
+}
+.facts li b{font-family:'Bangers',cursive;letter-spacing:.06em;color:var(--cyan);font-weight:400;font-size:1.05rem;display:block}
+.facts li:nth-child(odd){transform:rotate(-.8deg)}
+.facts li:nth-child(even){transform:rotate(.8deg)}
+
+.about-photo{
+  position:relative;z-index:2;
+  width:150px;
+  background:var(--paper);
+  border:4px solid var(--ink);
+  padding:9px 9px 30px;
+  box-shadow:6px 7px 0 rgba(4,8,10,.55);
+  transform:rotate(-3deg);
+  margin-bottom:8px;
+}
+.about-photo .frame{
+  width:100%;aspect-ratio:1;
+  background:linear-gradient(180deg,var(--panel-2),var(--night-2));
+  border:3px solid var(--ink);
+  display:grid;place-items:center;
+  overflow:hidden;
+}
+.about-photo .frame svg{width:62%;height:62%}
+.about-photo .cap{
+  position:absolute;bottom:6px;left:0;right:0;text-align:center;
+  font-family:'Bangers',cursive;letter-spacing:.06em;font-size:1.05rem;color:var(--ink);
+}
+.photo-note{
+  position:relative;z-index:2;display:block;
+  font-weight:700;font-size:.72rem;color:#9fb3b2;
+  margin:0 0 20px;
+}
+
+/* CONTACT */
+.contact-strip .cell{min-height:300px}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;position:relative;z-index:2;margin-top:22px}
+.contact-card{
+  display:flex;gap:14px;align-items:center;text-decoration:none;
+  background:var(--paper);color:var(--ink);
+  border:4px solid var(--ink);box-shadow:5px 6px 0 rgba(4,8,10,.55);
+  padding:14px 16px;transition:transform .13s ease, background .13s;
+}
+.contact-card:nth-child(odd){transform:rotate(-1deg)}
+.contact-card:nth-child(even){transform:rotate(1deg)}
+.contact-card:hover{background:var(--cyan);transform:rotate(0) translateY(-4px)}
+.contact-card .ic{width:44px;height:44px;flex:none;display:grid;place-items:center;background:var(--ink);color:var(--cyan);font-size:1.2rem;border:3px solid var(--ink)}
+.contact-card b{font-family:'Bangers',cursive;font-size:1.15rem;letter-spacing:.06em;display:block}
+.contact-card span{font-weight:700;font-size:.78rem;word-break:break-all}
+
+/* footer */
+footer{
+  border-top:5px solid var(--ink);
+  background:var(--paper);color:var(--ink);
+  padding:18px;text-align:center;
+  font-weight:700;font-size:.8rem;letter-spacing:.08em;
+}
+footer .display{font-size:1.25rem;letter-spacing:.08em}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(26px) }
+.reveal.in{opacity:1;transform:none;transition:opacity .55s ease, transform .55s cubic-bezier(.2,.9,.3,1)}
+
+/* clickable project cards */
+.proj-card{cursor:pointer}
+.proj-card:nth-child(odd):hover{transform:rotate(-.3deg) translateY(-6px);box-shadow:16px 18px 0 rgba(4,8,10,.55)}
+.proj-card:nth-child(even):hover{transform:rotate(.3deg) translateY(-6px);box-shadow:16px 18px 0 rgba(4,8,10,.55)}
+.proj-card:focus-visible{outline:4px dashed var(--cyan);outline-offset:4px}
+.card-hint{
+  position:absolute;top:16px;right:16px;z-index:4;
+  background:var(--paper);color:var(--ink);
+  border:3px solid var(--ink);
+  font-family:'Bangers',cursive;font-size:.82rem;letter-spacing:.05em;
+  padding:4px 11px;
+  box-shadow:3px 3px 0 rgba(4,8,10,.45);
+  transform:rotate(-3deg);
+  opacity:0;transition:opacity .15s ease, transform .15s ease;
+  pointer-events:none;
+}
+.proj-card:hover .card-hint,.proj-card:focus-visible .card-hint{opacity:1;transform:rotate(-3deg) translateY(-2px)}
+
+/* ---------- project detail modal ---------- */
+.modal-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(6,10,12,.78);
+  display:flex;align-items:center;justify-content:center;
+  padding:40px 26px;
+  opacity:0;visibility:hidden;
+  transition:opacity .22s ease, visibility 0s linear .22s;
+}
+.modal-overlay.open{opacity:1;visibility:visible;transition:opacity .22s ease}
+.comic-modal{
+  position:relative;width:100%;max-width:1180px;max-height:88vh;overflow-y:auto;
+  background:var(--paper);color:var(--ink);
+  border:5px solid var(--ink);
+  box-shadow:14px 16px 0 rgba(4,8,10,.6);
+  padding:34px 38px 40px;
+  transform:scale(.9) rotate(-1.2deg);
+  transition:transform .25s cubic-bezier(.2,1.5,.4,1);
+}
+.modal-overlay.open .comic-modal{transform:scale(1) rotate(0deg)}
+.modal-close{
+  position:absolute;top:18px;right:18px;z-index:5;
+  width:42px;height:42px;display:grid;place-items:center;
+  background:var(--amber);color:var(--ink);
+  border:4px solid var(--ink);
+  font-family:'Bangers',cursive;font-size:1.3rem;
+  box-shadow:4px 4px 0 rgba(4,8,10,.55);
+  cursor:pointer;transition:transform .14s ease, background .14s ease;
+}
+.modal-close:hover{transform:rotate(90deg) scale(1.08);background:var(--cyan)}
+.modal-close:focus-visible{outline:3px dashed var(--ink)}
+.modal-head{padding-right:56px}
+.modal-type{
+  display:inline-block;margin-top:12px;
+  background:var(--night-2);color:var(--cyan);
+  border:3px solid var(--ink);
+  font-weight:700;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  padding:6px 14px;
+  box-shadow:3px 3px 0 rgba(4,8,10,.35);
+}
+.modal-section-label{
+  display:inline-block;margin:28px 0 12px;
+  background:var(--ink);color:var(--paper);
+  font-family:'Bangers',cursive;letter-spacing:.06em;font-size:1.15rem;
+  padding:5px 15px;transform:rotate(-1deg);
+  box-shadow:3px 3px 0 rgba(4,8,10,.4);
+}
+.modal-main{display:grid;grid-template-columns:3fr 2fr;gap:26px;margin-top:8px;align-items:stretch}
+.modal-art-box{
+  position:relative;overflow:hidden;
+  border:4px solid var(--ink);
+  background:linear-gradient(180deg,var(--panel-2),var(--panel) 60%, var(--night-2));
+  min-height:300px;height:100%;
+  box-shadow:5px 6px 0 rgba(4,8,10,.4);
+}
+.modal-art-box .mock{position:relative;z-index:2;max-width:420px;margin:0 auto}
+.modal-side{display:flex;flex-direction:column;height:100%}
+.modal-details{display:flex;flex-direction:column;gap:14px}
+.modal-stack{margin-top:22px}
+.modal-stack .modal-section-label{margin:0 0 12px}
+.detail-item{
+  background:var(--night-2);border:3px solid var(--ink);
+  padding:11px 15px;
+  box-shadow:4px 4px 0 rgba(4,8,10,.4);
+}
+.detail-item b{display:block;font-family:'Bangers',cursive;letter-spacing:.06em;color:var(--cyan);font-size:.95rem;margin-bottom:3px;font-weight:400}
+.detail-item span, .detail-item a{color:var(--paper);font-weight:700;font-size:.85rem;text-decoration:none;word-break:break-word}
+.detail-item a:hover{color:var(--cyan);text-decoration:underline}
+.modal-desc p{font-weight:700;line-height:1.65;font-size:.96rem}
+.modal-desc p + p{margin-top:14px}
+@media (max-width:760px){
+  .modal-main{grid-template-columns:1fr}
+  .modal-art-box{height:auto;min-height:220px}
+  .comic-modal{padding:26px 20px 30px}
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:980px){
+  .cover-board{grid-template-columns:1fr 1fr}
+  .panel.hero{grid-column:span 2}
+  .xp{grid-template-columns:1fr}
+  .xp .when-cell{min-height:110px}
+  .proj .cell{grid-template-columns:1fr}
+  .proj .art{border-left:none;border-top:4px solid var(--ink);min-height:220px}
+  .about-grid{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .cover-board{grid-template-columns:1fr}
+  .panel.hero{grid-column:span 1}
+  .masthead{flex-wrap:wrap}
+  .masthead nav{width:100%;justify-content:flex-start}
+  .panel{min-height:280px}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= MASTHEAD ================= -->
+<header class="masthead">
+  <span class="logo">OMAR</span>
+  <span class="issue">Issue #01 · The Developer</span>
+  <nav aria-label="Sections">
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- ================= COVER GRID ================= -->
+<main>
+<section class="cover" aria-label="Cover">
+  <div class="cover-board">
+
+    <!-- HERO PANEL -->
+    <article class="panel hero halftone">
+      <div class="stars"></div>
+      <span class="sfx" style="top:14px;right:120px">ZAP!</span>
+      <span class="bolt" style="top:26px;right:70px" aria-hidden="true">
+        <svg viewBox="0 0 24 40"><path d="M14 0 2 22h7L6 40 22 14h-8L18 0z" fill="currentColor" stroke="#0b0f11" stroke-width="2"/></svg>
+      </span>
+      <div class="burst"><span>HI!</span></div>
+      <br>
+      <div class="nameplate">I’m Omar</div>
+      <br>
+      <a class="btn" style="margin-top:20px" href="#contact">
+        <span>📄</span>
+        <span>My Résumé<small>view / download →</small></span>
+      </a>
+      <div class="figure" aria-hidden="true">
+        <!-- noir figure silhouette -->
+        <svg viewBox="0 0 220 300">
+          <defs>
+            <pattern id="ht" width="6" height="6" patternUnits="userSpaceOnUse">
+              <circle cx="3" cy="3" r="1" fill="rgba(239,233,220,.16)"/>
+            </pattern>
+          </defs>
+          <!-- hair -->
+          <path d="M96 30 C84 8 128 2 140 16 C158 6 172 26 164 44 C176 52 170 74 158 78 L150 96 118 96 100 74 C86 70 86 46 96 30z" fill="#0b0f11"/>
+          <path d="M104 26 c10 -10 34 -10 44 2 -6 -2 -12 0 -16 6 -8 -8 -20 -10 -28 -8z" fill="#17323d"/>
+          <!-- face sliver -->
+          <path d="M150 52 c8 2 12 12 8 22 -4 10 -12 16 -18 14 l-4 -18z" fill="#e4dccb"/>
+          <path d="M152 62 l8 2" stroke="#0b0f11" stroke-width="2"/>
+          <!-- coat -->
+          <path d="M70 300 L74 150 C76 118 96 96 128 92 L156 90 C186 96 204 120 206 152 L212 300z" fill="#0b0f11"/>
+          <path d="M120 96 L110 300 130 300 140 98z" fill="#17323d"/>
+          <path d="M76 150 C80 122 98 102 124 96 L118 130 96 170 84 220z" fill="url(#ht)"/>
+          <!-- collar -->
+          <path d="M118 92 L96 120 108 132 128 100z" fill="#1e4150" stroke="#0b0f11" stroke-width="3"/>
+          <path d="M160 92 L184 122 170 134 148 100z" fill="#1e4150" stroke="#0b0f11" stroke-width="3"/>
+        </svg>
+      </div>
+      <div class="sky" aria-hidden="true">
+        <svg viewBox="0 0 400 160" preserveAspectRatio="none">
+          <g fill="#0c1a21" stroke="#0b0f11" stroke-width="2">
+            <rect x="0" y="70" width="46" height="90"/><rect x="50" y="40" width="34" height="120"/>
+            <rect x="88" y="86" width="52" height="74"/><rect x="304" y="52" width="40" height="108"/>
+            <rect x="348" y="80" width="52" height="80"/>
+          </g>
+          <g fill="#e9b64e" opacity=".85">
+            <rect x="8" y="80" width="6" height="8"/><rect x="24" y="96" width="6" height="8"/>
+            <rect x="58" y="52" width="5" height="7"/><rect x="70" y="70" width="5" height="7"/>
+            <rect x="98" y="96" width="6" height="8"/><rect x="316" y="64" width="5" height="7"/>
+            <rect x="328" y="90" width="5" height="7"/><rect x="360" y="92" width="6" height="8"/>
+          </g>
+        </svg>
+      </div>
+    </article>
+
+    <!-- EXPERIENCE PANEL -->
+    <article class="panel halftone hatch">
+      <span class="sfx" style="top:10px;right:14px;font-size:1.7rem">WHAM!</span>
+      <a class="bubble plain" href="#experience" style="text-decoration:none;color:var(--ink)">Experience</a>
+      <br><span class="kicker">My journey so far</span>
+      <div class="doodle" aria-hidden="true">
+        <svg viewBox="0 0 200 130">
+          <rect x="30" y="8" width="140" height="86" rx="4" fill="#efe9dc" stroke="#0b0f11" stroke-width="5"/>
+          <rect x="40" y="18" width="120" height="66" fill="#0c171d"/>
+          <polyline points="48,72 66,52 78,62 96,36 110,48 126,30" fill="none" stroke="#7fd2dc" stroke-width="3"/>
+          <rect x="112" y="26" width="40" height="4" fill="#efe9dc" opacity=".7"/>
+          <rect x="112" y="36" width="30" height="4" fill="#efe9dc" opacity=".45"/>
+          <path d="M14 118 L30 94 h140 l16 24z" fill="#e4dccb" stroke="#0b0f11" stroke-width="5"/>
+          <rect x="78" y="102" width="44" height="8" rx="3" fill="#0b0f11"/>
+        </svg>
+      </div>
+      <p class="copy">Explore my professional journey, skills, and the companies I’ve had the privilege to work with.</p>
+      <a class="btn teal" href="#experience" style="margin-top:14px">View Experience <span class="arrow">→</span></a>
+      <div class="sky" style="height:34%" aria-hidden="true">
+        <svg viewBox="0 0 400 100" preserveAspectRatio="none">
+          <g fill="#0c1a21" stroke="#0b0f11" stroke-width="2">
+            <rect x="250" y="18" width="30" height="82"/><rect x="286" y="42" width="44" height="58"/>
+            <rect x="336" y="10" width="26" height="90"/><rect x="366" y="50" width="34" height="50"/>
+          </g>
+          <g fill="#e9b64e" opacity=".8">
+            <rect x="258" y="30" width="5" height="6"/><rect x="296" y="54" width="5" height="6"/>
+            <rect x="344" y="24" width="5" height="6"/><rect x="374" y="60" width="5" height="6"/>
+          </g>
+        </svg>
+      </div>
+    </article>
+
+    <!-- SKILLS PANEL -->
+    <article class="panel halftone">
+      <div class="stars"></div>
+      <span class="sfx" style="bottom:16px;right:16px;font-size:1.7rem">POW!</span>
+      <a class="bubble plain" href="#skills" style="text-decoration:none;color:var(--ink);background:var(--cyan)">Skills</a>
+      <br><span class="kicker">Tools &amp; technologies I use</span>
+      <div class="chips" aria-label="Skill list">
+        <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JS</span>
+        <span class="chip">TS</span><span class="chip">React</span><span class="chip">Tailwind</span>
+        <span class="chip">Git</span>
+      </div>
+      <div class="motto">Always learning.<br>Always building. ⚡</div>
+      <a class="btn teal" href="#skills" style="margin-top:22px">All Skills <span class="arrow">→</span></a>
+    </article>
+
+    <!-- PROJECTS PANEL -->
+    <article class="panel halftone hatch">
+      <span class="sfx" style="top:12px;right:16px;font-size:1.7rem">BAM!</span>
+      <a class="bubble plain" href="#projects" style="text-decoration:none;color:var(--ink)">Projects</a>
+      <br><span class="kicker">Things I’ve built</span>
+      <ol class="mini-timeline">
+        <li><span class="when">2024 — PRESENT</span><br><span class="what">Haggle — Freelance Platform</span></li>
+        <li><span class="when">2023 — 2024</span><br><span class="what">Analytics Dashboard</span></li>
+        <li><span class="when">2022 — 2023</span><br><span class="what">Task Force — Productivity App</span></li>
+      </ol>
+      <a class="btn" href="#projects" style="margin-top:16px">See the work <span class="arrow">→</span></a>
+      <div class="sky" style="height:30%" aria-hidden="true">
+        <svg viewBox="0 0 400 90" preserveAspectRatio="none">
+          <g fill="#0c1a21" stroke="#0b0f11" stroke-width="2">
+            <rect x="290" y="20" width="36" height="70"/><rect x="332" y="44" width="68" height="46"/>
+          </g>
+          <g fill="#e9b64e" opacity=".8"><rect x="300" y="32" width="5" height="6"/><rect x="348" y="56" width="5" height="6"/></g>
+        </svg>
+      </div>
+    </article>
+
+    <!-- ABOUT PANEL -->
+    <article class="panel halftone">
+      <span class="sfx" style="top:12px;left:18px;font-size:1.7rem">ZOOM!</span>
+      <a class="bubble plain" href="#about" style="text-decoration:none;color:var(--paper);background:var(--ink)">About Me</a>
+      <div class="notebox" style="margin-top:24px;transform:rotate(-1.4deg)">
+        <p style="text-transform:uppercase;font-size:.9rem;letter-spacing:.05em">
+          I build websites and applications that are fast, accessible, and built to make an impact.
+        </p>
+        <p style="text-transform:uppercase;font-size:.9rem;letter-spacing:.05em">
+          When I’m not coding, I’m exploring new tech, designing, or playing video games.
+        </p>
+      </div>
+      <a class="btn" href="#about" style="margin-top:22px">Learn More <span class="arrow">→</span></a>
+    </article>
+
+    <!-- CONTACT PANEL -->
+    <article class="panel halftone">
+      <div class="stars"></div>
+      <div class="moon" aria-hidden="true"></div>
+      <span class="sfx" style="bottom:18px;right:20px;font-size:1.7rem">RING!</span>
+      <a class="bubble plain" href="#contact" style="text-decoration:none;color:var(--ink)">Contact</a>
+      <br><span class="kicker">Let’s work together!</span>
+      <div class="c-rows">
+        <a class="c-row" href="https://linkedin.com/in/omar-dev" target="_blank" rel="noopener">
+          <span class="ic">in</span><span><b>LinkedIn</b><span>linkedin.com/in/omar-dev</span></span>
+        </a>
+        <a class="c-row" href="https://github.com/omar-dev" target="_blank" rel="noopener">
+          <span class="ic">&lt;/&gt;</span><span><b>GitHub</b><span>github.com/omar-dev</span></span>
+        </a>
+        <a class="c-row" href="mailto:omar.dev@gmail.com">
+          <span class="ic">✉</span><span><b>Email</b><span>omar.dev@gmail.com</span></span>
+        </a>
+        <a class="c-row" href="https://omar.dev" target="_blank" rel="noopener">
+          <span class="ic">🌐</span><span><b>Personal Website</b><span>omar.dev</span></span>
+        </a>
+      </div>
+      <div class="sky" style="height:28%" aria-hidden="true">
+        <svg viewBox="0 0 400 90" preserveAspectRatio="none">
+          <g fill="#0c1a21" stroke="#0b0f11" stroke-width="2">
+            <rect x="230" y="14" width="30" height="76"/><rect x="266" y="40" width="46" height="50"/>
+            <rect x="318" y="26" width="34" height="64"/><rect x="356" y="52" width="44" height="38"/>
+          </g>
+          <g fill="#e9b64e" opacity=".85">
+            <rect x="238" y="26" width="5" height="6"/><rect x="276" y="52" width="5" height="6"/>
+            <rect x="328" y="38" width="5" height="6"/><rect x="366" y="60" width="5" height="6"/>
+          </g>
+        </svg>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<span class="pagejump" id="experience"></span>
+<section class="section" aria-labelledby="xp-h">
+  <div class="section-head reveal">
+    <span class="bubble" id="xp-h">Experience</span>
+    <br><span class="kicker">Page 2 · My journey so far</span>
+  </div>
+
+  <div class="strip xp reveal halftone">
+    <span class="sfx" style="top:-18px;right:24px">KAPOW!</span>
+    <div class="cell when-cell"><div><span class="yr">2024</span><span class="to">— to —</span><span class="yr">NOW</span></div></div>
+    <div class="cell hatch">
+      <h3>Senior Frontend Developer</h3>
+      <span class="org">Haggle · Remote</span>
+      <ul class="xp-list">
+        <li>Leading the frontend of a freelance marketplace used by thousands of clients and freelancers</li>
+        <li>Own the design system end-to-end and ship features from concept to production</li>
+        <li>Keep Lighthouse scores in the green while the product grows fast</li>
+      </ul>
+      <div class="tags"><span class="tag">NEXT.JS</span><span class="tag">TYPESCRIPT</span><span class="tag">POSTGRESQL</span><span class="tag">DESIGN SYSTEMS</span></div>
+    </div>
+  </div>
+
+  <div class="strip xp reveal halftone">
+    <span class="sfx" style="top:-18px;right:24px">CRASH!</span>
+    <div class="cell when-cell"><div><span class="yr">2023</span><span class="to">— to —</span><span class="yr">2024</span></div></div>
+    <div class="cell hatch">
+      <h3>Frontend Developer</h3>
+      <span class="org">DataPulse Analytics</span>
+      <ul class="xp-list">
+        <li>Built a real-time analytics dashboard from a blank canvas</li>
+        <li>Shipped live charts and streaming updates that turn raw metrics into decisions</li>
+        <li>Cut initial load time by 40% with code-splitting and smarter data fetching</li>
+      </ul>
+      <div class="tags"><span class="tag">REACT</span><span class="tag">CHART.JS</span><span class="tag">NODE.JS</span><span class="tag">WEBSOCKETS</span></div>
+    </div>
+  </div>
+
+  <div class="strip xp reveal halftone">
+    <span class="sfx" style="top:-18px;right:24px">BOOM!</span>
+    <div class="cell when-cell"><div><span class="yr">2022</span><span class="to">— to —</span><span class="yr">2023</span></div></div>
+    <div class="cell hatch">
+      <h3>Junior Developer</h3>
+      <span class="org">Task Force Studio</span>
+      <ul class="xp-list">
+        <li>First panel of the story — shipped a productivity app for teams to plan, track, and ship work faster</li>
+        <li>Learned the craft: code reviews, testing, and accessibility</li>
+        <li>Where I learned how good software actually gets made</li>
+      </ul>
+      <div class="tags"><span class="tag">REACT</span><span class="tag">FIREBASE</span><span class="tag">TAILWIND CSS</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<span class="pagejump" id="skills"></span>
+<section class="section" aria-labelledby="sk-h">
+  <div class="section-head reveal">
+    <span class="bubble" id="sk-h" style="background:var(--cyan)">Skills</span>
+    <br><span class="kicker">Page 3 · Tools &amp; technologies I use</span>
+  </div>
+
+  <div class="strip reveal halftone" style="grid-template-columns:1fr">
+    <span class="sfx" style="top:-18px;left:28px">ZAP!</span>
+    <div class="cell hatch">
+
+      <span class="skill-group-label">Programming Languages</span>
+      <div class="cards">
+        <div class="card"><div class="glyph">JS</div><h3>JavaScript</h3><div class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div>
+        <div class="card"><div class="glyph">TS</div><h3>TypeScript</h3><div class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div>
+      </div>
+
+      <span class="skill-group-label">Frontend</span>
+      <div class="cards">
+        <div class="card"><div class="glyph">5</div><h3>HTML</h3><div class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+        <div class="card"><div class="glyph">3</div><h3>CSS</h3><div class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+        <div class="card"><div class="glyph">⚛</div><h3>React</h3><div class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+        <div class="card"><div class="glyph">〜</div><h3>Tailwind</h3><div class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div>
+        <div class="card"><div class="glyph">▲</div><h3>Next.js</h3><div class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div>
+      </div>
+
+      <span class="skill-group-label">Backend</span>
+      <div class="cards">
+        <div class="card"><div class="glyph">⬢</div><h3>Node.js</h3><div class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div>
+        <div class="card"><div class="glyph">⛁</div><h3>PostgreSQL</h3><div class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></div>
+      </div>
+
+      <span class="skill-group-label">Tools &amp; Platforms</span>
+      <div class="cards">
+        <div class="card"><div class="glyph">⎇</div><h3>Git</h3><div class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<span class="pagejump" id="projects"></span>
+<section class="section" aria-labelledby="pr-h">
+  <div class="section-head reveal">
+    <span class="bubble" id="pr-h">Projects</span>
+    <br><span class="kicker">Page 4 · Things I’ve built</span>
+  </div>
+
+  <div class="strip proj reveal halftone proj-card" data-project="haggle" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View more about Haggle">
+    <span class="sfx" style="top:-18px;right:28px">BAM!</span>
+    <div class="cell">
+      <span class="card-hint">CLICK FOR MORE ⤢</span>
+      <div class="txt hatch">
+        <h3>Haggle</h3>
+        <span class="when">2024 — PRESENT · FREELANCE PLATFORM</span>
+        <p>A full-stack marketplace that connects clients with freelancers — profiles, proposals, escrow-style payments, and real-time messaging. Built with Next.js, TypeScript, and PostgreSQL.</p>
+        <div class="tags"><span class="tag">NEXT.JS</span><span class="tag">TYPESCRIPT</span><span class="tag">POSTGRESQL</span></div>
+      </div>
+      <div class="art halftone" id="art-haggle">
+        <div class="mock">
+          <div class="bar"><i></i><i></i><i></i></div>
+          <div class="ln"></div><div class="ln short"></div><div class="ln amber"></div>
+          <div class="blocks"><b></b><b></b><b></b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="strip proj reveal halftone proj-card" data-project="analytics" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View more about Analytics Dashboard">
+    <span class="sfx" style="top:-18px;right:28px">WHOOSH!</span>
+    <div class="cell">
+      <span class="card-hint">CLICK FOR MORE ⤢</span>
+      <div class="txt hatch">
+        <h3>Analytics Dashboard</h3>
+        <span class="when">2023 — 2024 · REAL-TIME METRICS</span>
+        <p>Real-time analytics dashboard for businesses to visualize key metrics — live charts, alerts, and drill-downs that stay fast under heavy data. Built with React, Chart.js, and Node.js.</p>
+        <div class="tags"><span class="tag">REACT</span><span class="tag">CHART.JS</span><span class="tag">NODE.JS</span></div>
+      </div>
+      <div class="art halftone" id="art-analytics">
+        <div class="mock">
+          <div class="bar"><i></i><i></i><i></i></div>
+          <svg viewBox="0 0 160 70" style="width:100%">
+            <polyline points="6,58 30,40 52,48 76,24 100,34 124,14 152,26" fill="none" stroke="#7fd2dc" stroke-width="4"/>
+            <polyline points="6,64 30,56 52,60 76,50 100,54 124,44 152,48" fill="none" stroke="#e9b64e" stroke-width="3" opacity=".8"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="strip proj reveal halftone proj-card" data-project="taskforce" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View more about Task Force">
+    <span class="sfx" style="top:-18px;right:28px">SNAP!</span>
+    <div class="cell">
+      <span class="card-hint">CLICK FOR MORE ⤢</span>
+      <div class="txt hatch">
+        <h3>Task Force</h3>
+        <span class="when">2022 — 2023 · PRODUCTIVITY APP</span>
+        <p>A productivity app for teams to plan, track, and ship work faster — boards, sprints, and a keyboard-first workflow. Built with React, Firebase, and Tailwind CSS.</p>
+        <div class="tags"><span class="tag">REACT</span><span class="tag">FIREBASE</span><span class="tag">TAILWIND CSS</span></div>
+      </div>
+      <div class="art halftone" id="art-taskforce">
+        <div class="mock">
+          <div class="bar"><i></i><i></i><i></i></div>
+          <div class="blocks" style="margin-top:6px"><b></b><b></b><b></b></div>
+          <div class="ln" style="margin-top:10px"></div><div class="ln short"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<span class="pagejump" id="about"></span>
+<section class="section" aria-labelledby="ab-h">
+  <div class="section-head reveal">
+    <span class="bubble" id="ab-h" style="background:var(--ink);color:var(--paper)">About Me</span>
+    <br><span class="kicker">Page 5 · Origin story</span>
+  </div>
+
+  <div class="strip about-grid reveal halftone">
+    <span class="sfx" style="top:-18px;left:28px">ZOOM!</span>
+    <div class="cell hatch">
+      <div class="notebox">
+        <p>I build websites and applications that are fast, accessible, and built to make an impact. The web is my city — every project is another panel in the story.</p>
+        <p>When I’m not coding, I’m exploring new tech, designing interfaces just for fun, or playing video games late into the night skyline.</p>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="stars"></div>
+      <div class="about-photo">
+        <div class="frame">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="38" r="20" fill="#3f7f8f"/>
+            <path d="M14 96c3-26 19-40 36-40s33 14 36 40z" fill="#3f7f8f"/>
+          </svg>
+        </div>
+        <span class="cap">OMAR</span>
+      </div>
+      <span class="photo-note">📷 Placeholder — swap in your photo</span>
+      <ul class="facts">
+        <li><b>Base of operations</b> Working remotely, shipping worldwide</li>
+        <li><b>Superpower</b> Turning messy requirements into clean interfaces</li>
+        <li><b>Weakness</b> One more refactor before bed</li>
+        <li><b>Currently reading</b> Design engineering &amp; a stack of graphic novels</li>
+      </ul>
+      <div class="sky" style="height:26%" aria-hidden="true">
+        <svg viewBox="0 0 400 80" preserveAspectRatio="none">
+          <g fill="#0c1a21" stroke="#0b0f11" stroke-width="2">
+            <rect x="10" y="20" width="30" height="60"/><rect x="46" y="40" width="50" height="40"/>
+            <rect x="320" y="12" width="30" height="68"/><rect x="356" y="44" width="44" height="36"/>
+          </g>
+          <g fill="#e9b64e" opacity=".8"><rect x="18" y="30" width="5" height="6"/><rect x="330" y="24" width="5" height="6"/></g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<span class="pagejump" id="contact"></span>
+<section class="section" aria-labelledby="ct-h">
+  <div class="section-head reveal">
+    <span class="bubble" id="ct-h" style="background:var(--amber)">Contact</span>
+    <br><span class="kicker">Final page · Let’s work together!</span>
+  </div>
+
+  <div class="strip contact-strip reveal halftone" style="grid-template-columns:1fr">
+    <span class="sfx" style="top:-18px;right:30px">RING!</span>
+    <div class="cell">
+      <div class="stars"></div>
+      <div class="moon" aria-hidden="true"></div>
+      <p class="copy" style="max-width:56ch;font-size:1.05rem">Have a project, a role, or just a wild idea? The signal’s on — pick a channel and the next issue starts with your message.</p>
+      <div class="contact-grid">
+        <a class="contact-card" href="https://linkedin.com/in/omar-dev" target="_blank" rel="noopener">
+          <span class="ic">in</span><span><b>LinkedIn</b><span>linkedin.com/in/omar-dev</span></span>
+        </a>
+        <a class="contact-card" href="https://github.com/omar-dev" target="_blank" rel="noopener">
+          <span class="ic">&lt;/&gt;</span><span><b>GitHub</b><span>github.com/omar-dev</span></span>
+        </a>
+        <a class="contact-card" href="mailto:omar.dev@gmail.com">
+          <span class="ic">✉</span><span><b>Email</b><span>omar.dev@gmail.com</span></span>
+        </a>
+        <a class="contact-card" href="https://omar.dev" target="_blank" rel="noopener">
+          <span class="ic">🌐</span><span><b>Website</b><span>omar.dev</span></span>
+        </a>
+      </div>
+      <div class="sky" style="height:30%" aria-hidden="true">
+        <svg viewBox="0 0 400 90" preserveAspectRatio="none">
+          <g fill="#0c1a21" stroke="#0b0f11" stroke-width="2">
+            <rect x="0" y="26" width="36" height="64"/><rect x="42" y="48" width="54" height="42"/>
+            <rect x="102" y="16" width="28" height="74"/><rect x="270" y="30" width="40" height="60"/>
+            <rect x="316" y="10" width="30" height="80"/><rect x="352" y="46" width="48" height="44"/>
+          </g>
+          <g fill="#e9b64e" opacity=".85">
+            <rect x="8" y="38" width="5" height="6"/><rect x="54" y="58" width="5" height="6"/>
+            <rect x="110" y="30" width="5" height="6"/><rect x="280" y="42" width="5" height="6"/>
+            <rect x="324" y="22" width="5" height="6"/><rect x="362" y="56" width="5" height="6"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span class="display">TO BE CONTINUED…</span><br>
+  © 2026 Omar · Inked with HTML, CSS &amp; a little JavaScript · No heroes were harmed in the making of this site
+</footer>
+
+<!-- ================= PROJECT DETAIL MODAL ================= -->
+<div class="modal-overlay" id="project-modal-overlay" aria-hidden="true">
+  <div class="comic-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-text" id="project-modal">
+    <button type="button" class="modal-close" id="modal-close-btn" aria-label="Close project details">✕</button>
+    <div class="modal-head">
+      <span class="bubble plain" id="modal-title-text">Project</span>
+      <br><span class="modal-type" id="modal-type-text"></span>
+    </div>
+
+    <div class="modal-main">
+      <div class="modal-art-box halftone" id="modal-art-box"></div>
+      <div class="modal-side">
+        <div class="modal-details" id="modal-details"></div>
+        <div class="modal-stack">
+          <span class="modal-section-label">Tech Stack</span>
+          <div class="tags modal-tags" id="modal-tags"></div>
+        </div>
+      </div>
+    </div>
+
+    <span class="modal-section-label">About This Project</span>
+    <div class="modal-desc" id="modal-desc-wrap"></div>
+  </div>
+</div>
+
+<script>
+// nav active state — driven by the URL hash
+const navLinks = Array.from(document.querySelectorAll('.masthead nav a'));
+function setActiveFromHash(){
+  const hash = window.location.hash;
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === hash));
+}
+window.addEventListener('hashchange', setActiveFromHash);
+setActiveFromHash(); // handle direct links / reloads with a hash already in the URL
+
+// ---------- project detail modal ----------
+const PROJECTS = {
+  haggle: {
+    title: "Haggle",
+    type: "Personal Project",
+    date: "2024 — Present",
+    links: [
+      {label:"GitHub", url:"https://github.com/omar-dev/haggle"},
+      {label:"Live Demo", url:"https://haggle.omar.dev"}
+    ],
+    tags: ["NEXT.JS","TYPESCRIPT","POSTGRESQL","STRIPE","WEBSOCKETS"],
+    paragraphs: [
+      "Haggle is a full-stack marketplace built to connect clients with freelancers — but instead of a rigid accept-or-reject flow, proposals are a back-and-forth thread with counter-offers, scoped deliverables, and milestone-based payouts.",
+      "I own the frontend end-to-end: a shared design system, optimistic UI for real-time messaging, and a proposal builder that turns a wall of requirements into a structured, editable quote in minutes.",
+      "Highlights: proposal creation got roughly 40% faster after a redesign of the builder flow, chat runs over WebSockets for instant delivery, and the escrow-style payment flow is built on Stripe Connect."
+    ]
+  },
+  analytics: {
+    title: "Analytics Dashboard",
+    type: "Client Project",
+    date: "2023 — 2024",
+    links: [
+      {label:"GitHub", url:"https://github.com/omar-dev/analytics-dashboard"},
+      {label:"Live Demo", url:"https://analytics-demo.omar.dev"}
+    ],
+    tags: ["REACT","CHART.JS","NODE.JS","WEBSOCKETS","REDIS"],
+    paragraphs: [
+      "A real-time analytics dashboard built from scratch so businesses could turn a firehose of raw event data into decisions — live charts, threshold alerts, and drill-downs that stay responsive even under heavy load.",
+      "The frontend streams updates over WebSockets and batches re-renders so charts stay smooth at high update frequency, while a Redis-backed cache on the Node.js API keeps query latency low.",
+      "Highlights: initial load time cut by roughly 40% through code-splitting and smarter data fetching, plus a drill-down view that lets teams go from a top-line metric to the underlying records in two clicks."
+    ]
+  },
+  taskforce: {
+    title: "Task Force",
+    type: "Team Project",
+    date: "2022 — 2023",
+    links: [
+      {label:"GitHub", url:"https://github.com/omar-dev/task-force"}
+    ],
+    tags: ["REACT","FIREBASE","TAILWIND CSS"],
+    paragraphs: [
+      "Task Force is a productivity app for teams to plan, track, and ship work faster — boards, sprints, and a keyboard-first workflow so you rarely need to touch the mouse.",
+      "This was my first project on a real team: my first code reviews, my first time writing tests that mattered, and the project where accessibility and performance stopped being afterthoughts.",
+      "Firebase handles realtime sync across boards so changes from teammates show up instantly, and the whole UI was built on a small, reusable set of Tailwind components."
+    ]
+  }
+};
+
+const modalOverlay = document.getElementById('project-modal-overlay');
+const modalBox = document.getElementById('project-modal');
+const modalCloseBtn = document.getElementById('modal-close-btn');
+const modalTitleText = document.getElementById('modal-title-text');
+const modalTypeText = document.getElementById('modal-type-text');
+const modalArtBox = document.getElementById('modal-art-box');
+const modalDetails = document.getElementById('modal-details');
+const modalDescWrap = document.getElementById('modal-desc-wrap');
+const modalTagsWrap = document.getElementById('modal-tags');
+let lastFocusedEl = null;
+
+function openProjectModal(key){
+  const data = PROJECTS[key];
+  if(!data || !modalOverlay) return;
+  modalTitleText.textContent = data.title;
+  modalTypeText.textContent = data.type;
+  modalDescWrap.innerHTML = data.paragraphs.map(p => `<p>${p}</p>`).join('');
+  modalTagsWrap.innerHTML = data.tags.map(t => `<span class="tag">${t}</span>`).join('');
+  const detailRows = [`<div class="detail-item"><b>Date</b><span>${data.date}</span></div>`];
+  data.links.forEach(l=>{
+    detailRows.push(`<div class="detail-item"><b>${l.label}</b><a href="${l.url}" target="_blank" rel="noopener">${l.url.replace(/^https?:\/\//,'')}</a></div>`);
+  });
+  modalDetails.innerHTML = detailRows.join('');
+  const sourceArt = document.getElementById('art-' + key);
+  modalArtBox.innerHTML = sourceArt ? sourceArt.innerHTML : '';
+  lastFocusedEl = document.activeElement;
+  modalOverlay.classList.add('open');
+  modalOverlay.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+  modalCloseBtn.focus();
+}
+
+function closeProjectModal(){
+  if(!modalOverlay) return;
+  modalOverlay.classList.remove('open');
+  modalOverlay.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+  if(lastFocusedEl && typeof lastFocusedEl.focus === 'function') lastFocusedEl.focus();
+}
+
+document.querySelectorAll('.proj-card').forEach(card=>{
+  card.addEventListener('click', ()=> openProjectModal(card.dataset.project));
+  card.addEventListener('keydown', (ev)=>{
+    if(ev.key === 'Enter' || ev.key === ' '){
+      ev.preventDefault();
+      openProjectModal(card.dataset.project);
+    }
+  });
+});
+modalCloseBtn?.addEventListener('click', closeProjectModal);
+modalOverlay?.addEventListener('click', (ev)=>{
+  if(ev.target === modalOverlay) closeProjectModal();
+});
+document.addEventListener('keydown', (ev)=>{
+  if(ev.key === 'Escape' && modalOverlay?.classList.contains('open')) closeProjectModal();
+});
+
+// scroll reveal
+const io = new IntersectionObserver((entries)=>{
+  for(const e of entries){
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  }
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// subtle parallax tilt on cover panels (skipped for reduced motion)
+const rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!rm){
+  document.querySelectorAll('.cover .panel').forEach(p=>{
+    p.addEventListener('mousemove',ev=>{
+      const r = p.getBoundingClientRect();
+      const dx = (ev.clientX - r.left)/r.width - .5;
+      const dy = (ev.clientY - r.top)/r.height - .5;
+      p.style.setProperty('--tx', dx);
+      const base = p.matches(':nth-child(odd)') ? -0.35 : 0.35;
+      p.style.transform = `rotate(${base}deg) translate(${dx*-5}px, ${dy*-5}px)`;
+    });
+    p.addEventListener('mouseleave',()=>{ p.style.transform=''; });
+  });
+}
+
+// randomize SFX rotation a touch for hand-drawn feel
+document.querySelectorAll('.sfx').forEach(s=>{
+  const r = (Math.random()*10-5).toFixed(1);
+  s.style.setProperty('rotate', r+'deg');
+});
+</script>
+</body>
+</html>
