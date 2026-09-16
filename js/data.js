@@ -318,18 +318,18 @@ export const skills = [
 ];
 export const about = {
   abstract: [
-    "I build toys and applications that are fast, accessible, and built to make an impact.",
-    "When I’m not coding, I’m exploring new tech, designing, or playing video games."
+    "I'm a junior at Cal Poly SLO majoring in CS, who is driven by passion and the curiosity to understand different tech. I am an artist that sees code as a form of creative expression where I can build anything I imagine.",
   ],
   description: [
-    "I build websites and applications that are fast, accessible, and built to make an impact. The web is my city — every project is another panel in the story.",
-    "When I’m not coding, I’m exploring new tech, designing interfaces just for fun, or playing video games late into the night skyline."
+    "I build ideas and applications that are fun, practical, and built to make an impact.",
+    "I am an artist that sees code as a form of creative expression where I can build anything I imagine. My interests lie in AI Engineering, Mobile and Web Development and I've pursued these through internships, self-learning and projects.",
+    "Feel free to check out my GitHub! If anything interests you in any way, do not hesitate to reach out!"
   ],
   details: [
     { label: "Location", value: "San Luis Obispo" },
     { label: "Studying", value: "CS @ Cal Poly SLO" },
     { label: "Year", value: "Class of 2028" },
-    { label: "Currently doing", value: "Building projects and learning new tech" }
+    { label: "Currently doing", value: "Diving headfirst into recruiting season" }
   ]
 };
 export const contact = {
