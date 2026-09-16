@@ -152,66 +152,7 @@ export const projects = [
     artwork: "project",
     rank: null,
     images: []
-  },  {
-    id: "haggle",
-    title: "Haggle",
-    type: "Personal Project",
-    period: "2024 — Present",
-    coverLabel: "2024 — PRESENT · FREELANCE PLATFORM",
-    sfx: "BAM!",
-    summary: "A full-stack marketplace that connects clients with freelancers — profiles, proposals, escrow-style payments, and real-time messaging. Built with Next.js, TypeScript, and PostgreSQL.",
-    tags: ["NEXT.JS", "TYPESCRIPT", "POSTGRESQL", "STRIPE", "WEBSOCKETS"],
-    links: [
-      { label: "GitHub", url: "https://github.com/omar-dev/haggle" },
-      { label: "Live Demo", url: "https://haggle.omar.dev" }
-    ],
-    paragraphs: [
-      "Haggle is a full-stack marketplace built to connect clients with freelancers — but instead of a rigid accept-or-reject flow, proposals are a back-and-forth thread with counter-offers, scoped deliverables, and milestone-based payouts.",
-      "I own the frontend end-to-end: a shared design system, optimistic UI for real-time messaging, and a proposal builder that turns a wall of requirements into a structured, editable quote in minutes.",
-      "Highlights: proposal creation got roughly 40% faster after a redesign of the builder flow, chat runs over WebSockets for instant delivery, and the escrow-style payment flow is built on Stripe Connect."
-    ],
-    artwork: "marketplace",
-    rank: null
   },
-  {
-    id: "analytics",
-    title: "Analytics Dashboard",
-    type: "Client Project",
-    period: "2023 — 2024",
-    coverLabel: "2023 — 2024 · REAL-TIME METRICS",
-    sfx: "WHOOSH!",
-    summary: "Real-time analytics dashboard for businesses to visualize key metrics — live charts, alerts, and drill-downs that stay fast under heavy data. Built with React, Chart.js, and Node.js.",
-    tags: ["REACT", "CHART.JS", "NODE.JS", "WEBSOCKETS", "REDIS"],
-    links: [
-      { label: "GitHub", url: "https://github.com/omar-dev/analytics-dashboard" },
-      { label: "Live Demo", url: "https://analytics-demo.omar.dev" }
-    ],
-    paragraphs: [
-      "A real-time analytics dashboard built from scratch so businesses could turn a firehose of raw event data into decisions — live charts, threshold alerts, and drill-downs that stay responsive even under heavy load.",
-      "The frontend streams updates over WebSockets and batches re-renders so charts stay smooth at high update frequency, while a Redis-backed cache on the Node.js API keeps query latency low.",
-      "Highlights: initial load time cut by roughly 40% through code-splitting and smarter data fetching, plus a drill-down view that lets teams go from a top-line metric to the underlying records in two clicks."
-    ],
-    artwork: "analytics",
-    rank: null
-  },
-  {
-    id: "taskforce",
-    title: "Task Force",
-    type: "Team Project",
-    period: "2022 — 2023",
-    coverLabel: "2022 — 2023 · PRODUCTIVITY APP",
-    sfx: "SNAP!",
-    summary: "A productivity app for teams to plan, track, and ship work faster — boards, sprints, and a keyboard-first workflow. Built with React, Firebase, and Tailwind CSS.",
-    tags: ["REACT", "FIREBASE", "TAILWIND CSS"],
-    links: [{ label: "GitHub", url: "https://github.com/omar-dev/task-force" }],
-    paragraphs: [
-      "Task Force is a productivity app for teams to plan, track, and ship work faster — boards, sprints, and a keyboard-first workflow so you rarely need to touch the mouse.",
-      "This was my first project on a real team: my first code reviews, my first time writing tests that mattered, and the project where accessibility and performance stopped being afterthoughts.",
-      "Firebase handles realtime sync across boards so changes from teammates show up instantly, and the whole UI was built on a small, reusable set of Tailwind components."
-    ],
-    artwork: "taskboard",
-    rank: null
-  }
 ];
 
 export const experiences = [
