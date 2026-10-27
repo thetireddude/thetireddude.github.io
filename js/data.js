@@ -1,6 +1,37 @@
 // Project rank controls the compact project timeline on the cover. Lower numbers appear first.
 // Set rank to null to show a project only in the full Projects section.
 export const projects = [
+    {
+    id: "tandem",
+    title: "Tandem",
+    type: "CalHacks 13.0 Submission",
+    period: "October 2026",
+    coverLabel: "CALHACKS 13.0 - AGENTIC ORCHESTRATOR TOOL",
+    sfx: "TEAMWORK!",
+    summary: "A CLI orchestrator tool that allows multiple Claude accounts to concurrently work together seamlessly within a project. ",
+    tags: ["PYTHON", "TYPESCRIPT", "SPACETIMEDB", "TAILSCALE", "CLI"],
+    links: [
+      { label: "GitHub", url: "https://github.com/Vibertexs/tandem" },
+      { label: "DevPost", url: "https://devpost.com/software/tandem-pyjo95?ref_content=user-portfolio&ref_feature=in_progress"},
+      { label: "Demo Video", url: "https://www.youtube.com/watch?v=vsL8In5YvjM&source_ve_path=NzY3NTg&embeds_referring_euri=https%3A%2F%2Fdevpost.com%2F"}
+    ],
+    paragraphs: [
+      "Our team kept running into the same problem. Each of us had an AI coding agent open on the same repo, and they kept getting in each other's way. Two agents would edit the same file, redo each other's work and drift apart. One of us would run out of Claude usage while a teammate's quota sat unused. And nobody could tell what any agent was doing. AI made each of us faster, but it made us worse at working as a team. We wanted our agents to work together the way a good team does.",
+      "One prompt for the whole team. You type a goal like \"Build a login page\". A manager agent splits it into small tasks and lists the exact files each one touches and what has to happen first.",
+      "No collisions. When a worker claims a task, it locks that task's files in one atomic step, so two agents can never get the same task or file. If Claude tries to edit a file someone else holds, a hook stops it.",
+      "Work goes to whoever has room. Workers on every teammate's computer pull tasks themselves, each under its owner's Claude login. A worker that hits its usage limit hands its task back and returns after the reset. If a worker crashes, its files are released after two minutes.",
+      "Teammates join with one invite link. They don't need GitHub, because the host shares the project directly, and Tailscale keeps it private on public wifi."
+    ],
+    artwork: "project",
+    rank: null,
+    images: [
+      { src: "assets/images/projects/tandem/dashboard.jpg", alt: "Tandem Project Dashboard" },
+      { src: "assets/images/projects/tandem/task-description.jpg", alt: "Worker Task Details" },
+      { src: "assets/images/projects/tandem/project-shared-memory.jpg", alt: "Shared Memory" },
+      { src: "assets/images/projects/tandem/project-team.jpg", alt: "View Your Tandem Team" },
+      { src: "assets/images/projects/tandem/worker-activity-log.jpg", alt: "Worker Activity Log" },
+    ]
+  },
   {
     id: "improv-faceoff",
     title: "Improv Faceoff",
@@ -152,66 +183,7 @@ export const projects = [
     artwork: "project",
     rank: null,
     images: []
-  },  {
-    id: "haggle",
-    title: "Haggle",
-    type: "Personal Project",
-    period: "2024 — Present",
-    coverLabel: "2024 — PRESENT · FREELANCE PLATFORM",
-    sfx: "BAM!",
-    summary: "A full-stack marketplace that connects clients with freelancers — profiles, proposals, escrow-style payments, and real-time messaging. Built with Next.js, TypeScript, and PostgreSQL.",
-    tags: ["NEXT.JS", "TYPESCRIPT", "POSTGRESQL", "STRIPE", "WEBSOCKETS"],
-    links: [
-      { label: "GitHub", url: "https://github.com/omar-dev/haggle" },
-      { label: "Live Demo", url: "https://haggle.omar.dev" }
-    ],
-    paragraphs: [
-      "Haggle is a full-stack marketplace built to connect clients with freelancers — but instead of a rigid accept-or-reject flow, proposals are a back-and-forth thread with counter-offers, scoped deliverables, and milestone-based payouts.",
-      "I own the frontend end-to-end: a shared design system, optimistic UI for real-time messaging, and a proposal builder that turns a wall of requirements into a structured, editable quote in minutes.",
-      "Highlights: proposal creation got roughly 40% faster after a redesign of the builder flow, chat runs over WebSockets for instant delivery, and the escrow-style payment flow is built on Stripe Connect."
-    ],
-    artwork: "marketplace",
-    rank: null
   },
-  {
-    id: "analytics",
-    title: "Analytics Dashboard",
-    type: "Client Project",
-    period: "2023 — 2024",
-    coverLabel: "2023 — 2024 · REAL-TIME METRICS",
-    sfx: "WHOOSH!",
-    summary: "Real-time analytics dashboard for businesses to visualize key metrics — live charts, alerts, and drill-downs that stay fast under heavy data. Built with React, Chart.js, and Node.js.",
-    tags: ["REACT", "CHART.JS", "NODE.JS", "WEBSOCKETS", "REDIS"],
-    links: [
-      { label: "GitHub", url: "https://github.com/omar-dev/analytics-dashboard" },
-      { label: "Live Demo", url: "https://analytics-demo.omar.dev" }
-    ],
-    paragraphs: [
-      "A real-time analytics dashboard built from scratch so businesses could turn a firehose of raw event data into decisions — live charts, threshold alerts, and drill-downs that stay responsive even under heavy load.",
-      "The frontend streams updates over WebSockets and batches re-renders so charts stay smooth at high update frequency, while a Redis-backed cache on the Node.js API keeps query latency low.",
-      "Highlights: initial load time cut by roughly 40% through code-splitting and smarter data fetching, plus a drill-down view that lets teams go from a top-line metric to the underlying records in two clicks."
-    ],
-    artwork: "analytics",
-    rank: null
-  },
-  {
-    id: "taskforce",
-    title: "Task Force",
-    type: "Team Project",
-    period: "2022 — 2023",
-    coverLabel: "2022 — 2023 · PRODUCTIVITY APP",
-    sfx: "SNAP!",
-    summary: "A productivity app for teams to plan, track, and ship work faster — boards, sprints, and a keyboard-first workflow. Built with React, Firebase, and Tailwind CSS.",
-    tags: ["REACT", "FIREBASE", "TAILWIND CSS"],
-    links: [{ label: "GitHub", url: "https://github.com/omar-dev/task-force" }],
-    paragraphs: [
-      "Task Force is a productivity app for teams to plan, track, and ship work faster — boards, sprints, and a keyboard-first workflow so you rarely need to touch the mouse.",
-      "This was my first project on a real team: my first code reviews, my first time writing tests that mattered, and the project where accessibility and performance stopped being afterthoughts.",
-      "Firebase handles realtime sync across boards so changes from teammates show up instantly, and the whole UI was built on a small, reusable set of Tailwind components."
-    ],
-    artwork: "taskboard",
-    rank: null
-  }
 ];
 
 export const experiences = [
@@ -235,8 +207,20 @@ export const experiences = [
   },
   {
     periodStart: "AUG. 2026", periodEnd: "PRESENT", title: "Director of Meetings", organization: "CS+AI Club · San Luis Obispo, California", sfx: "ZOOM!",
-    highlights: [],
+    highlights: [
+      "Lead a 5-person team to deliver biweekly AI programming by collaborating with executive board, setting the roadmap, coordinating presenters, and reviewing technical content, contributing to the club’s growth to ˜1,000 Discord members.",
+    ],
     tags: ["LEADERSHIP", "AI COMMUNITY"]
+  },
+  {
+    periodStart: "SEP. 2026", periodEnd: "PRESENT", title: "Product Manager & Software Developer", organization: "CodeBox · San Luis Obispo, California", sfx: "PRODUCT!",
+    highlights: [
+      "Lead product strategy and development for a 7-member engineering team as the sole Product Manager, owning product scope, technical requirements, roadmap, feature prioritization, and stakeholder communication alongside 2 technical leads and 4 developers.",
+      "Conceived and directed development of a club operations platform designed to centralize documents, events, tasks, and organizational knowledge, translating product requirements into engineering priorities and coordinating implementation through GitHub Projects and Linear.",
+      "Drive user-centered product development by owning weekly user research and incorporating stakeholder feedback into feature prioritization, product requirements, and iterative development.",
+      "Participate in full-stack software development and planned forward-deployed engineering, with responsibility for helping integrate the platform into student organizations' existing workflows, adapting functionality to their needs, and supporting post-launch adoption and maintenance."
+    ],
+    tags: ["PRODUCT MANAGEMENT", "SOFTWARE DEVELOPMENT", "USER RESEARCH", "LEADERSHIP", "PROJECT MANAGEMENT"]
   },
   {
     periodStart: "SEP. 2025", periodEnd: "MAY 2026", title: "Meeting Facilitator", organization: "CS+AI Club · San Luis Obispo, California", sfx: "ZAP!",
