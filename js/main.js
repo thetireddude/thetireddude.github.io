@@ -216,7 +216,7 @@ function setupEnhancements() {
   const navLinks = [...document.querySelectorAll(".masthead nav a")];
   const setActiveFromHash = () => navLinks.forEach((link) => link.classList.toggle("active", link.getAttribute("href") === window.location.hash));
   window.addEventListener("hashchange", setActiveFromHash); setActiveFromHash();
-  const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add("in"); observer.unobserve(entry.target); } }), { threshold: 0.12 });
+  const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add("in"); observer.unobserve(entry.target); } }), { threshold: 0.01 });
   document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) document.querySelectorAll(".cover .panel").forEach((panel) => {
     panel.addEventListener("mousemove", (event) => { const box = panel.getBoundingClientRect(); const x = event.clientX - box.left; const y = event.clientY - box.top; const base = panel.matches(":nth-child(odd)") ? -0.35 : 0.35; panel.style.transform = `rotate(${base}deg) translate(${((x / box.width) - 0.5) * -5}px, ${((y / box.height) - 0.5) * -5}px)`; });
